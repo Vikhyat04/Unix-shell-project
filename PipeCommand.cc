@@ -54,10 +54,14 @@ void PipeCommand::clear() {
     // (basically just sets the size to 0)
     _simpleCommands.clear();
 
-    if ( _outFile ) {
+      if ( _outFile ) {
         delete _outFile;
+        if ( _outFile == _errFile ) {
+            _errFile = NULL;
+        }
+        _outFile = NULL;
     }
-    _outFile = NULL;
+
 
     if ( _inFile ) {
         delete _inFile;
