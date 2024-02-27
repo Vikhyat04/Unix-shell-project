@@ -126,7 +126,7 @@ void PipeCommand::execute() {
     if (_inFile) {
         fdin = open(_inFile->c_str(), O_RDONLY);
     } else {
-        fdin = dup(fdin);
+        fdin = dup(defin);
     }
 
     if(_errFile){
@@ -138,7 +138,7 @@ void PipeCommand::execute() {
 		}
 	}
 	else {
-		fderr = dup(fderr);
+		fderr = dup(deferr);
 	}
 
     dup2(fderr,2);
@@ -165,6 +165,10 @@ void PipeCommand::execute() {
             }
         } else {
 			int fdpipe[2];
+            if (pipe(fdpipe) == -1) {
+                perror("pipe");
+                exit(1);
+            }
 			pipe(fdpipe);
 			fdout = fdpipe[1];
 			fdin = fdpipe[0];
