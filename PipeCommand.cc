@@ -65,13 +65,13 @@ void PipeCommand::clear() {
 
     if ( _inFile ) {
         delete _inFile;
+            _inFile = NULL;
     }
-    _inFile = NULL;
 
     if ( _errFile ) {
         delete _errFile;
+                _errFile = NULL;
     }
-    _errFile = NULL;
 
     _background = false;
 }
