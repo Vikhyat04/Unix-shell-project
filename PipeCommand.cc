@@ -161,7 +161,7 @@ void PipeCommand::execute() {
                     fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0755);
                 }
             } else {
-                dup2(defout,fdout);
+                fdout = dup(defout);
             }
         } else {
 			int fdpipe[2];
