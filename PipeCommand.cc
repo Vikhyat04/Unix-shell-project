@@ -147,6 +147,57 @@ void PipeCommand::execute() {
 	close(fderr);
     int ret;
      unsigned long num_of_commands = _simpleCommands.size();
+     for (unsigned long i = 0; i < num_of_commands; i++) {
+        
+        dup2(fdin, 0);
+        close(fdin);
+        if(i == num_of_commands - 1) {
+            if(_outFile) {
+                if(_boolappend) {
+                    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_APPEND, 0755);
+                }
+                else {
+                    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0755);
+                }
+            } else {
+                fdout = dup(defout);
+            }
+        } else {
+			int fdpipe[2];
+            if (pipe(fdpipe) == -1) {
+                perror("pipe");
+                exit(1);
+            }
+			pipe(fdpipe);
+			fdout = fdpipe[1];
+			fdin = fdpipe[0];
+		}
+        dup2(fdout, 1);
+        close(fdout);
+        
+        SimpleCommand *s=_simpleCommands[i];
+        const char ** args = (const char **)
+        malloc((s->_arguments.size()+1)*sizeof(char*));
+        for ( unsigned long j=0;j < s->_arguments.size(); j++ ) {
+            args[j] = s->_arguments[j]->c_str();
+        }
+        args[s->_arguments.size()] = NULL;
+        ret = fork();
+        if (ret == 0) {
+            execvp(args[0], (char* const*)args);
+            perror("execvp");
+            exit(1);
+        }
+    }
+    dup2(defin, 0);
+    dup2(defout, 1);
+    dup2(deferr, 2);
+    close(defin);
+	close(defout);
+	close(deferr);
+    if (!_background) {
+        waitpid(ret, NULL, 0);
+    }
     
     
 
