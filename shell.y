@@ -96,9 +96,6 @@ io_modifier:
 	 | LESS WORD {
 		Shell::TheShell->_pipeCommand->_inFile = $2;
 	 }
-	 | AMPERSAND WORD {
-		Shell::TheShell->_pipeCommand->_background = true;
-	 }
 	 | TWOGREAT WORD {
 		Shell::TheShell->_pipeCommand->_errFile = $2;
 	 }
@@ -111,7 +108,9 @@ io_modifier_list:
 
 background_optional: 
 	AMPERSAND
-	| /*empty*/
+	| {
+				Shell::TheShell->_pipeCommand->_background = true;
+	}
 	;
 
 SEPARATOR:
