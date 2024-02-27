@@ -120,6 +120,10 @@ void PipeCommand::execute() {
       clear();
 		  return;
 	}
+        int defin = dup( 0 );
+	int defout = dup( 1 );
+	int deferr = dup( 2 );
+
 
     // Clear to prepare for next command
     clear();
