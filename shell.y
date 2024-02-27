@@ -79,22 +79,27 @@ io_modifier:
 	   GREATGREAT WORD {
 			Shell::TheShell->_pipeCommand->_outFile = $2;
 			Shell::TheShell->_pipeCommand->_boolappend = true;
+      Shell::TheShell->_pipeCommand->_ambout++;
 	   }
 	 | GREAT WORD 
 	    {
 		Shell::TheShell->_pipeCommand->_outFile = $2;
+    Shell::TheShell->_pipeCommand->_ambout++;
 	    }
 	 | GREATGREATAMPERSAND WORD {
 			Shell::TheShell->_pipeCommand->_outFile = $2;
 			Shell::TheShell->_pipeCommand->_errFile = $2;
 			Shell::TheShell->_pipeCommand->_boolappend = true;
+      Shell::TheShell->_pipeCommand->_ambout++;
 	 }
 	 | GREATAMPERSAND WORD {
 			Shell::TheShell->_pipeCommand->_outFile = $2;
 			Shell::TheShell->_pipeCommand->_errFile = $2;
+      Shell::TheShell->_PipeCommand->_ambout++;
 	 }
 	 | LESS WORD {
 		Shell::TheShell->_pipeCommand->_inFile = $2;
+    Shell::TheShell->_pipeCommand->_ambin++;
 	 }
 	 | TWOGREAT WORD {
 		Shell::TheShell->_pipeCommand->_errFile = $2;

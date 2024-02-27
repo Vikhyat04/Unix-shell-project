@@ -37,6 +37,10 @@ PipeCommand::PipeCommand() {
     _inFile = NULL;
     _errFile = NULL;
     _background = false;
+    _ambin = 0;
+    _ambout = 0;
+    _boolappend = false;
+
 }
 
 void PipeCommand::insertSimpleCommand( SimpleCommand * simplePipeCommand ) {
@@ -114,6 +118,12 @@ void PipeCommand::execute() {
     // For every simple command fork a new process
     // Setup i/o redirection
     // and call exec
+
+    if (_ambin > 1 || _ambout > 1) {
+		  printf("Ambiguous output redirect.\n");
+      clear();
+		  return;
+	}
 
     int defin = dup( 0 );
 	int defout = dup( 1 );
