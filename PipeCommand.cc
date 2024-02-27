@@ -132,6 +132,22 @@ void PipeCommand::execute() {
         fdin = dup(defin);
     }
 
+    if(_errFile){
+		if(_boolappend){
+			fderr = open(_errFile->c_str(), O_WRONLY | O_APPEND | O_CREAT, 0755);
+		}
+		else {
+			fderr = open(_errFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		}
+	}
+	else {
+		fderr = dup(deferr);
+	}
+    dup2(fderr,2);
+	close(fderr);
+    int ret;
+
+
 
 
     // Clear to prepare for next command
