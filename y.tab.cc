@@ -1216,7 +1216,7 @@ yyreduce:
                                {
 			Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
 			Shell::TheShell->_pipeCommand->_errFile = (yyvsp[0].cpp_string);
-      Shell::TheShell->_PipeCommand->_ambout++;
+      Shell::TheShell->_pipeCommand->_ambout++;
 	 }
 #line 1222 "y.tab.cc"
     break;

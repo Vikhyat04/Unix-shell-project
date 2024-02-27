@@ -14,8 +14,8 @@ public:
   std::string * _errFile;
   bool _background;
   bool _boolappend;
-  int _ambin = 0;
-  int _ambout = 0;
+  int _ambin;
+  int _ambout;
 
   PipeCommand();
   void insertSimpleCommand( SimpleCommand * simpleCommand );
