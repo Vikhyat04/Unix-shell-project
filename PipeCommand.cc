@@ -108,7 +108,7 @@ void PipeCommand::execute() {
     }
 
     // Print contents of PipeCommand data structure
-    print();
+    // print();
 
     // Add execution here
     // For every simple command fork a new process
