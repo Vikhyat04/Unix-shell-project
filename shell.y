@@ -73,14 +73,33 @@ pipe_list:
 	;
 
 io_modifier:
-	   GREATGREAT WORD
+	   GREATGREAT WORD {
+			Shell::TheShell->_pipeCommand->_outFile = $2;
+			Shell::TheShell->_pipeCommand->_boolappend = true;
+	   }
 	 | GREAT WORD 
 	    {
 		Shell::TheShell->_pipeCommand->_outFile = $2;
 	    }
-	 | GREATGREATAMPERSAND WORD
-	 | GREATAMPERSAND WORD
-	 | LESS WORD
+	 | GREATGREATAMPERSAND WORD {
+			Shell::TheShell->_pipeCommand->_outFile = $2;
+			Shell::TheShell->_pipeCommand->_background = true;
+			Shell::TheShell->_pipeCommand->_boolappend = true;
+	 }
+	 | GREATAMPERSAND WORD {
+			Shell::TheShell->_pipeCommand->_outFile = $2;
+			Shell::TheShell->_pipeCommand->_background = true;
+	 }
+	 | LESS WORD {
+		Shell::TheShell->_pipeCommand->_inFile = $2;
+	 }
+	 | AMPERSAND WORD {
+		Shell::TheShell->_pipeCommand->_background = true;
+	 }
+	 | INTEGERGREAT WORD {
+		Shell::TheShell->_pipeCommand->_outFile = $2;
+		Shell::TheShell->_pipeCommand->_errFile = $2;
+	 }
 	;
 
 io_modifier_list:
