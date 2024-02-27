@@ -13,9 +13,6 @@ public:
   std::string * _inFile;
   std::string * _errFile;
   bool _background;
-  bool _boolappend;
-  int _ambin = 0;
-  int _ambout = 0;
 
   PipeCommand();
   void insertSimpleCommand( SimpleCommand * simpleCommand );
