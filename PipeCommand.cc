@@ -115,6 +115,11 @@ void PipeCommand::execute() {
     // For every simple command fork a new process
     // Setup i/o redirection
     // and call exec
+        if (_ambin > 1 || _ambout > 1) {
+		  printf("Ambiguous output redirect.\n");
+      clear();
+		  return;
+	}
 
     // Clear to prepare for next command
     clear();
