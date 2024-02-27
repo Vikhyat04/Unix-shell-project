@@ -1,4 +1,3 @@
-
 /*
  * CS-252
  * shell.y: parser for shell
@@ -10,48 +9,37 @@
  * you must extend it to understand the complete shell grammar
  *
  */
-
 %code requires 
 {
 #include <string>
-
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
 }
-
 %union
 {
   char        *string_val;
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 }
-
 %token <cpp_string> WORD
 %token NOTOKEN GREAT GREATGREAT GREATAMPERSAND GREATGREATAMPERSAND 
 %token AMPERSAND PIPE LESS NEWLINE IF FI THEN LBRACKET RBRACKET SEMI
-%token DO DONE WHILE FOR IN
-
+%token DO DONE WHILE FOR IN TWOGREAT
 %{
 //#define yylex yylex
 #include <cstdio>
 #include "Shell.hh"
-
 void yyerror(const char * s);
 int yylex();
-
 %}
-
 %%
-
 goal: command_list;
-
 arg_list:
         arg_list WORD { 
           Shell::TheShell->_simpleCommand->insertArgument( $2 ); }
         | /*empty string*/
 	;
-
 cmd_and_args:
   	WORD { 
           Shell::TheShell->_simpleCommand = new SimpleCommand(); 
@@ -59,7 +47,6 @@ cmd_and_args:
         } 
         arg_list
 	;
-
 pipe_list:
         cmd_and_args 
 	    { 
@@ -69,35 +56,56 @@ pipe_list:
 	    }
 	| pipe_list PIPE cmd_and_args 
 	    { 
+		Shell::TheShell->_pipeCommand->insertSimpleCommand( 
+		    Shell::TheShell->_simpleCommand ); 
+		Shell::TheShell->_simpleCommand = new SimpleCommand();
 	    }
 	;
-
 io_modifier:
-	   GREATGREAT WORD
+	   GREATGREAT WORD {
+			Shell::TheShell->_pipeCommand->_outFile = $2;
+			Shell::TheShell->_pipeCommand->_boolappend = true;
+      Shell::TheShell->_pipeCommand->_ambout++;
+	   }
 	 | GREAT WORD 
 	    {
 		Shell::TheShell->_pipeCommand->_outFile = $2;
+    Shell::TheShell->_pipeCommand->_ambout++;
 	    }
-	 | GREATGREATAMPERSAND WORD
-	 | GREATAMPERSAND WORD
-	 | LESS WORD
+	 | GREATGREATAMPERSAND WORD {
+			Shell::TheShell->_pipeCommand->_outFile = $2;
+			Shell::TheShell->_pipeCommand->_errFile = $2;
+			Shell::TheShell->_pipeCommand->_boolappend = true;
+      Shell::TheShell->_pipeCommand->_ambout++;
+	 }
+	 | GREATAMPERSAND WORD {
+			Shell::TheShell->_pipeCommand->_outFile = $2;
+			Shell::TheShell->_pipeCommand->_errFile = $2;
+      Shell::TheShell->_pipeCommand->_ambout++;
+	 }
+	 | LESS WORD {
+		Shell::TheShell->_pipeCommand->_inFile = $2;
+    Shell::TheShell->_pipeCommand->_ambin++;
+	 }
+	 | TWOGREAT WORD {
+		Shell::TheShell->_pipeCommand->_errFile = $2;
+	 }
 	;
-
 io_modifier_list:
 	io_modifier_list io_modifier
 	| /*empty*/
 	;
-
 background_optional: 
 	AMPERSAND
-	| /*empty*/
+	{
+		Shell::TheShell->_pipeCommand->_background = true;
+	}
+	|
 	;
-
 SEPARATOR:
 	NEWLINE
 	| SEMI
 	;
-
 command_line:
 	 pipe_list io_modifier_list background_optional SEPARATOR 
          { 
@@ -115,7 +123,6 @@ command_line:
         | SEPARATOR /*accept empty cmd line*/
         | error SEPARATOR {yyerrok; Shell::TheShell->clear(); }
 	;          /*error recovery*/
-
 command_list :
      command_line 
 	{ 
@@ -127,7 +134,6 @@ command_list :
 	    Shell::TheShell->execute();
 	}
      ;  /* command loop*/
-
 if_command:
     IF LBRACKET 
 	{ 
@@ -148,23 +154,18 @@ if_command:
 	    Shell::TheShell->_listCommands = new ListCommands();
 	}
     ;
-
 while_command:
     WHILE LBRACKET arg_list RBRACKET SEMI DO command_list DONE 
     ;
-
 for_command:
     FOR WORD IN arg_list SEMI DO command_list DONE
     ;
-
 %%
-
 void
 yyerror(const char * s)
 {
   fprintf(stderr,"%s", s);
 }
-
 #if 0
 main()
 {
