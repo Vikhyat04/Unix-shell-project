@@ -96,7 +96,7 @@ io_modifier:
 	 | AMPERSAND WORD {
 		Shell::TheShell->_pipeCommand->_background = true;
 	 }
-	 | INTEGERGREAT WORD {
+	 | TWOGREAT WORD {
 		Shell::TheShell->_pipeCommand->_outFile = $2;
 		Shell::TheShell->_pipeCommand->_errFile = $2;
 	 }
