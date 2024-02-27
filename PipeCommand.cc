@@ -115,7 +115,7 @@ void PipeCommand::execute() {
         return;
     }
     // Print contents of PipeCommand data structure
-    // print();
+    print();
     // Add execution here
     // For every simple command fork a new process
     // Setup i/o redirection

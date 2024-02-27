@@ -45,15 +45,14 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 15 "shell.y"
+#line 13 "shell.y"
 
 #include <string>
-
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
 
-#line 57 "y.tab.hh"
+#line 56 "y.tab.hh"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -84,7 +83,8 @@ extern int yydebug;
     DONE = 275,                    /* DONE  */
     WHILE = 276,                   /* WHILE  */
     FOR = 277,                     /* FOR  */
-    IN = 278                       /* IN  */
+    IN = 278,                      /* IN  */
+    TWOGREAT = 279                 /* TWOGREAT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -114,18 +114,19 @@ extern int yydebug;
 #define WHILE 276
 #define FOR 277
 #define IN 278
+#define TWOGREAT 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 24 "shell.y"
+#line 20 "shell.y"
 
   char        *string_val;
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 
-#line 129 "y.tab.hh"
+#line 130 "y.tab.hh"
 
 };
 typedef union YYSTYPE YYSTYPE;
