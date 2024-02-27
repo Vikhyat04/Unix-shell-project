@@ -131,10 +131,10 @@ void PipeCommand::execute() {
 
     if(_errFile){
 		if(_boolappend){
-			fderr = open(_errFile, O_WRONLY | O_APPEND | O_CREAT, 0755);
+			fderr = open(_errFile->c_str(), O_WRONLY | O_APPEND | O_CREAT, 0755);
 		}
 		else {
-			fderr = open(_errFile, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+			fderr = open(_errFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0755);
 		}
 	}
 	else {
