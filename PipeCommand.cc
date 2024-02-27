@@ -146,6 +146,12 @@ void PipeCommand::execute() {
     dup2(fderr,2);
 	close(fderr);
     int ret;
+     unsigned long num_of_commands = _simpleCommands.size();
+    
+    
+
+
+
 
 
 
