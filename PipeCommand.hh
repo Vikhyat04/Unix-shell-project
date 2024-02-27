@@ -16,6 +16,7 @@ public:
   bool _boolappend;
   int _ambin;
   int _ambout;
+  int _amberr;
 
   PipeCommand();
   void insertSimpleCommand( SimpleCommand * simpleCommand );

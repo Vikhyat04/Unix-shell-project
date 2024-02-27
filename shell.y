@@ -77,11 +77,13 @@ io_modifier:
 			Shell::TheShell->_pipeCommand->_errFile = $2;
 			Shell::TheShell->_pipeCommand->_boolappend = true;
       Shell::TheShell->_pipeCommand->_ambout++;
+      Shell::TheShell->_pipeCommand->_amberr++;
 	 }
 	 | GREATAMPERSAND WORD {
 			Shell::TheShell->_pipeCommand->_outFile = $2;
 			Shell::TheShell->_pipeCommand->_errFile = $2;
       Shell::TheShell->_pipeCommand->_ambout++;
+      Shell::TheShell->_pipeCommand->_amberr++;
 	 }
 	 | LESS WORD {
 		Shell::TheShell->_pipeCommand->_inFile = $2;
@@ -89,6 +91,7 @@ io_modifier:
 	 }
 	 | TWOGREAT WORD {
 		Shell::TheShell->_pipeCommand->_errFile = $2;
+    Shell::TheShell->_pipeCommand->_amberr++;
 	 }
 	;
 io_modifier_list:
