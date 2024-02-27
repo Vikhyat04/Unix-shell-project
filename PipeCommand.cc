@@ -114,8 +114,59 @@ void PipeCommand::execute() {
     // For every simple command fork a new process
     // Setup i/o redirection
     // and call exec
+
+    int defin = dup( 0 );
+	int defout = dup( 1 );
+	int defaerr = dup( 2 );
+
+    int fdin;
+    int	fdout;
+	int fderr;
+
+    if (_inFile) {
+        fdin = open(_inFile->c_str(), O_RDONLY);
+    } else {
+        fdin = dup(fdin);
+    }
+
+    if(_errFile){
+		if(_boolappend){
+			fderr = open(_errFile, O_WRONLY | O_APPEND | O_CREAT, 0755);
+		}
+		else {
+			fderr = open(_errFile, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		}
+	}
+	else {
+		fderr = dup(fderr);
+	}
+
+    dup2(fderr,2);
+	close(fderr);
+
+
     int ret;
-    for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
+    unsigned long num_of_commands = _simpleCommands.size();
+    for (unsigned long i = 0; i < num_of_commands; i++) {
+        
+        dup2(fdin, 0);
+        close(fdin);
+
+        if(i == num_of_commands - 1) {
+            if(_outFile) {
+                if(_boolappend) {
+                    fdout = = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_APPEND, 0755);
+                }
+                else {
+                    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0755);
+                }
+            } else {
+                dup2(defout,fdout);
+            }
+        }
+        dup2(fdout, 1);
+        close(fdout);
+        
         SimpleCommand *s=_simpleCommands[i];
         const char ** args = (const char **)
         malloc((s->_arguments.size()+1)*sizeof(char*));
@@ -130,7 +181,20 @@ void PipeCommand::execute() {
             exit(1);
         }
     }
-    waitpid(ret, NULL, 0);
+
+    dup2(defin, 0);
+    dup2(defout, 1);
+    dup2(defperr, 2);
+
+    close(defin);
+	close(defout);
+	close(deferr);
+
+    if (!_background) {
+        waitpid(ret, NULL, 0);
+    }
+
+    
 
     // Clear to prepare for next command
     clear();
