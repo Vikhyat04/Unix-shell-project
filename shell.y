@@ -69,7 +69,6 @@ pipe_list:
 	    }
 	| pipe_list PIPE cmd_and_args 
 	    { 
-			//fix this
 		Shell::TheShell->_pipeCommand->insertSimpleCommand( 
 		    Shell::TheShell->_simpleCommand ); 
 		Shell::TheShell->_simpleCommand = new SimpleCommand();
