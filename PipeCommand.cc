@@ -184,7 +184,7 @@ void PipeCommand::execute() {
 
     dup2(defin, 0);
     dup2(defout, 1);
-    dup2(defperr, 2);
+    dup2(deferr, 2);
 
     close(defin);
 	close(defout);
