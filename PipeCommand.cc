@@ -117,7 +117,7 @@ void PipeCommand::execute() {
 
     int defin = dup( 0 );
 	int defout = dup( 1 );
-	int defaerr = dup( 2 );
+	int deferr = dup( 2 );
 
     int fdin;
     int	fdout;
@@ -155,7 +155,7 @@ void PipeCommand::execute() {
         if(i == num_of_commands - 1) {
             if(_outFile) {
                 if(_boolappend) {
-                    fdout = = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_APPEND, 0755);
+                    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_APPEND, 0755);
                 }
                 else {
                     fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0755);
