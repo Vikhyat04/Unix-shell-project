@@ -95,7 +95,7 @@ io_modifier:
 	 | GREATAMPERSAND WORD {
 			Shell::TheShell->_pipeCommand->_outFile = $2;
 			Shell::TheShell->_pipeCommand->_errFile = $2;
-      Shell::TheShell->_PipeCommand->_ambout++;
+      Shell::TheShell->_pipeCommand->_ambout++;
 	 }
 	 | LESS WORD {
 		Shell::TheShell->_pipeCommand->_inFile = $2;
