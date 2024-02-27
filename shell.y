@@ -76,14 +76,12 @@ io_modifier:
 			Shell::TheShell->_pipeCommand->_outFile = $2;
 			Shell::TheShell->_pipeCommand->_errFile = $2;
 			Shell::TheShell->_pipeCommand->_boolappend = true;
-      Shell::TheShell->_pipeCommand->_background = true;
       Shell::TheShell->_pipeCommand->_ambout++;
 	 }
 	 | GREATAMPERSAND WORD {
 			Shell::TheShell->_pipeCommand->_outFile = $2;
 			Shell::TheShell->_pipeCommand->_errFile = $2;
       Shell::TheShell->_pipeCommand->_ambout++;
-      Shell::TheShell->_pipeCommand->_background = true;
 	 }
 	 | LESS WORD {
 		Shell::TheShell->_pipeCommand->_inFile = $2;
