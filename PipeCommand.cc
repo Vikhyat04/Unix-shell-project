@@ -134,10 +134,10 @@ void PipeCommand::execute() {
 
     if(_errFile){
 		if(_boolappend){
-			fderr = open(_errFile->c_str(), O_WRONLY | O_APPEND | O_CREAT, 0755);
+			fderr = open(_errFile->c_str(), O_WRONLY | O_APPEND | O_CREAT, 0600);
 		}
 		else {
-			fderr = open(_errFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0755);
+			fderr = open(_errFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0600);
 		}
 	}
 	else {
@@ -154,10 +154,10 @@ void PipeCommand::execute() {
         if(i == num_of_commands - 1) {
             if(_outFile) {
                 if(_boolappend) {
-                    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_APPEND, 0755);
+                    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_APPEND, 0600);
                 }
                 else {
-                    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0755);
+                    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0600);
                 }
             } else {
                 fdout = dup(defout);
