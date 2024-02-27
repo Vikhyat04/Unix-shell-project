@@ -77,6 +77,9 @@ void PipeCommand::clear() {
     }
 
     _background = false;
+    _ambin = 0;
+    _ambout = 0;
+    _boolappend = false;
 }
 
 void PipeCommand::print() {
