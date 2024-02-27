@@ -116,7 +116,7 @@ void PipeCommand::execute() {
     // and call exec
     int ret;
     for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
-        SimpleCommand s=simpleCommands[i];
+        SimpleCommand s=_simpleCommands[i];
         const char ** args = (const char **)
         malloc((s->_arguments.size()+1)*sizeof(char*));
         for ( unsigned long j=0;j < s->_arguments.size(); j++ ) {
