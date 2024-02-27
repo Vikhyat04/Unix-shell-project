@@ -123,6 +123,15 @@ void PipeCommand::execute() {
         int defin = dup( 0 );
 	int defout = dup( 1 );
 	int deferr = dup( 2 );
+     int fdin;
+    int	fdout;
+	int fderr;
+    if (_inFile) {
+        fdin = open(_inFile->c_str(), O_RDONLY);
+    } else {
+        fdin = dup(defin);
+    }
+
 
 
     // Clear to prepare for next command
