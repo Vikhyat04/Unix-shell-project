@@ -1,6 +1,7 @@
 
 #include <unistd.h>
 #include <cstdio>
+#include <sys/wait.h>
 
 #include "Command.hh"
 #include "Shell.hh"
