@@ -4,8 +4,10 @@
 
 #include "Command.hh"
 #include "Shell.hh"
+#include "signal.h"
 
 int yyparse(void);
+
 
 Shell * Shell::TheShell;
 
@@ -19,6 +21,11 @@ Shell::Shell() {
     if ( !isatty(0)) {
 	this->_enablePrompt = false;
     }
+}
+
+extern "C" void ctrlC(int sig) {
+    printf("\nctrl c works\n");
+    Shell::TheShell->prompt();
 }
 
 void Shell::prompt() {
@@ -54,6 +61,16 @@ void yyset_in (FILE *  in_str );
 
 int 
 main(int argc, char **argv) {
+
+struct sigaction signalAction;
+    signalAction.sa_handler = ctrlC;  // Use ctrlC as the handler
+    sigemptyset(&signalAction.sa_mask);
+    signalAction.sa_flags = SA_RESTART;
+    int error = sigaction(SIGINT, &signalAction, NULL);
+    if (error) {
+        perror("sigaction");
+        exit(-1);
+    }
 
   char * input_file = NULL;
   if ( argc > 1 ) {
