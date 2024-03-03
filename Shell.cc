@@ -29,6 +29,14 @@ extern "C" void ctrlC(int sig) {
     Shell::TheShell->prompt();
 }
 
+
+void Shell::prompt() {
+    if (_enablePrompt) {
+	printf("myshell>");
+	fflush(stdout);
+    }
+}
+
 extern "C" void zombie(int sig) {
 	  int status;
     pid_t pid;
@@ -40,13 +48,6 @@ extern "C" void zombie(int sig) {
     }
 
     Shell::TheShell->prompt();
-}
-
-void Shell::prompt() {
-    if (_enablePrompt) {
-	printf("myshell>");
-	fflush(stdout);
-    }
 }
 
 void Shell::print() {
