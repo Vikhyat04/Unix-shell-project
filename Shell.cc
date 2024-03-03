@@ -36,6 +36,7 @@ extern "C" void zombie(int sig) {
     while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
         printf("%d exited\n", pid);
     }
+    Shell::TheShell->prompt();
 }
 
 void Shell::prompt() {
