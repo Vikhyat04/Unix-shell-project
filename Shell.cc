@@ -37,9 +37,7 @@ extern "C" void zombie(int sig) {
         printf("%d exited\n", pid);
     }
 
-    if(this->_background) {
-      Shell::TheShell->prompt();
-    }
+    Shell::TheShell->prompt();
 }
 
 void Shell::prompt() {
