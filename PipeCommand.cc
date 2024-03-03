@@ -111,6 +111,11 @@ void PipeCommand::execute() {
     // Print contents of PipeCommand data structure
     //print();
 
+    if(strcmp(_simpleCommands[0]->_arguments[0],"exit") == 0){
+		printf("Good bye!!\n");
+		exit(1);
+	}
+
     // Add execution here
     // For every simple command fork a new process
     // Setup i/o redirection
