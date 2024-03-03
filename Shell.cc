@@ -47,7 +47,6 @@ extern "C" void zombie(int sig) {
         }
     }
 
-    Shell::TheShell->prompt();
 }
 
 void Shell::print() {
