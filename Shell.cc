@@ -24,8 +24,17 @@ Shell::Shell() {
 }
 
 extern "C" void ctrlC(int sig) {
-    printf("\nctrl c works\n");
+    printf("\nctrl C works\n");
     Shell::TheShell->prompt();
+}
+
+extern "C" void zombie(int sig) {
+	  int status;
+    pid_t pid;
+
+    while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+        printf("%d exited\n", pid);
+    }
 }
 
 void Shell::prompt() {
@@ -62,7 +71,7 @@ void yyset_in (FILE *  in_str );
 int 
 main(int argc, char **argv) {
 
-struct sigaction signalAction;
+    struct sigaction signalAction;
     signalAction.sa_handler = ctrlC;  // Use ctrlC as the handler
     sigemptyset(&signalAction.sa_mask);
     signalAction.sa_flags = SA_RESTART;
@@ -71,6 +80,16 @@ struct sigaction signalAction;
         perror("sigaction");
         exit(-1);
     }
+
+    struct sigaction signalAction2;
+	  signalAction2.sa_handler = zombie;
+	  sigemptyset(&signalAction2.sa_mask);
+	  signalAction2.sa_flags = SA_RESTART;
+	  error =  sigaction(SIGCHLD, &signalAction2, NULL);
+	  if (error) {
+		  perror("sigaction");
+		  exit(-1);
+	  }
 
   char * input_file = NULL;
   if ( argc > 1 ) {
