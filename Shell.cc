@@ -42,7 +42,7 @@ extern "C" void zombie(int sig) {
     pid_t pid;
 
     while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
-        if(_enablePrompt) {
+        if(this->_enablePrompt) {
           printf("%d exited\n", pid);
         }
     }
