@@ -385,12 +385,12 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[60] =
     {   0,
-        0,    0,   27,   24,    3,    2,   24,   24,   10,   24,
-       21,    5,    4,   11,   12,   24,   24,   24,   24,   24,
-        6,   24,   24,    0,    0,   23,   24,   24,    0,    1,
-       22,    8,    7,   17,   15,   24,   13,   20,   24,   24,
-       23,    0,   25,    0,   23,    9,   24,   19,   24,   24,
-       23,   24,   24,   24,   18,   14,   24,   16,    0
+        0,    0,   27,   25,    3,    2,   25,   25,   10,   25,
+       21,    5,    4,   11,   12,   25,   25,   25,   25,   25,
+        6,   25,   25,    0,    0,   23,   25,   25,    0,    1,
+       22,    8,    7,   17,   15,   25,   13,   20,   25,   25,
+       23,    0,   24,    0,   23,    9,   25,   19,   25,   25,
+       23,   25,   24,   25,   18,   14,   25,   16,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -494,7 +494,7 @@ static const flex_int16_t yy_chk[128] =
 static const flex_int32_t yy_rule_can_match_eol[27] =
     {   0,
 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 1, 0,     };
+    0, 0, 0, 0, 1, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -987,18 +987,9 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case 24:
+/* rule 24 can match eol */
 YY_RULE_SETUP
 #line 120 "shell.l"
-{
-  /* Assume that file names have only alpha chars */
-  yylval.cpp_string = new std::string(yytext);
-  return WORD;
-}
-	YY_BREAK
-case 25:
-/* rule 25 can match eol */
-YY_RULE_SETUP
-#line 126 "shell.l"
 {
     char *escapedString = (char *)malloc(yyleng);
     int escapedStringLength = 0;
@@ -1015,6 +1006,15 @@ YY_RULE_SETUP
     yylval.cpp_string = new std::string(escapedString);
     free(escapedString);
     return WORD;
+}
+	YY_BREAK
+case 25:
+YY_RULE_SETUP
+#line 138 "shell.l"
+{
+  /* Assume that file names have only alpha chars */
+  yylval.cpp_string = new std::string(yytext);
+  return WORD;
 }
 	YY_BREAK
 case 26:

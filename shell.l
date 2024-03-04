@@ -112,11 +112,6 @@ void myunputc(int c) {
   return TWOGREAT;
 }
 
-\"[^\n\"]*\" {
-    yylval.cpp_string = new std::string(yytext+1, yyleng-2);
-    return WORD;
-}
-
 \"(\\.|[^\"\\])*\" {
     char *escapedString = (char *)malloc(yyleng);
     int escapedStringLength = 0;
@@ -132,6 +127,11 @@ void myunputc(int c) {
     escapedString[escapedStringLength] = '\0';
     yylval.cpp_string = new std::string(escapedString);
     free(escapedString);
+    return WORD;
+}
+
+\"[^\n\"]*\" {
+    yylval.cpp_string = new std::string(yytext+1, yyleng-2);
     return WORD;
 }
 
