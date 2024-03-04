@@ -161,7 +161,7 @@ void PipeCommand::execute() {
 			    perror("setenv");
 		    }
 		    clear();
-		    prompt();
+            Shell::TheShell->prompt();
 		    return;
 	    }
 
