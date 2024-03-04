@@ -232,6 +232,14 @@ void PipeCommand::execute() {
         args[s->_arguments.size()] = NULL;
         ret = fork();
         if (ret == 0) {
+            if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv") == 0){
+				char ** envi = environ;
+
+				while(*envi){
+					printf("%s\n", *envi);
+					env++;
+				}
+			}
             execvp(args[0], (char* const*)args);
             perror("execvp");
             exit(1);
