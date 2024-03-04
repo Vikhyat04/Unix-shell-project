@@ -112,13 +112,14 @@ void myunputc(int c) {
   return TWOGREAT;
 }
 
-\\(\\.|[^\"\\])*\\ {
+\"(\\.|[^\"\\])*\" {
     char *escapedString = (char *)malloc(yyleng);
     int escapedStringLength = 0;
 
     for (int i = 1; i < yyleng - 1; ++i) {
         if (yytext[i] == '\\' && i + 1 < yyleng - 1) {
-            escapedString[escapedStringLength++] = yytext[++i];
+            escapedString[escapedStringLength++] = yytext[i++];
+            escapedString[escapedStringLength++] = yytext[i];
         } else {
             escapedString[escapedStringLength++] = yytext[i];
         }
