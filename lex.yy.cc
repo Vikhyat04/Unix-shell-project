@@ -389,8 +389,8 @@ static const flex_int16_t yy_accept[60] =
        21,    5,    4,   11,   12,   25,   25,   25,   25,   25,
         6,   25,   25,    0,    0,   23,   25,   25,    0,    1,
        22,    8,    7,   17,   15,   25,   13,   20,   25,   25,
-       23,    0,   24,    0,   23,    9,   25,   19,   25,   25,
-       23,   25,   24,   25,   18,   14,   25,   16,    0
+       23,    0,   23,    0,   24,    9,   25,   19,   25,   25,
+       24,   25,   23,   25,   18,   14,   25,   16,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -494,7 +494,7 @@ static const flex_int16_t yy_chk[128] =
 static const flex_int32_t yy_rule_can_match_eol[27] =
     {   0,
 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 1, 0, 0,     };
+    0, 0, 0, 1, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -979,17 +979,9 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case 23:
+/* rule 23 can match eol */
 YY_RULE_SETUP
 #line 115 "shell.l"
-{
-    yylval.cpp_string = new std::string(yytext+1, yyleng-2);
-    return WORD;
-}
-	YY_BREAK
-case 24:
-/* rule 24 can match eol */
-YY_RULE_SETUP
-#line 120 "shell.l"
 {
     char *escapedString = (char *)malloc(yyleng);
     int escapedStringLength = 0;
@@ -1005,6 +997,14 @@ YY_RULE_SETUP
     escapedString[escapedStringLength] = '\0';
     yylval.cpp_string = new std::string(escapedString);
     free(escapedString);
+    return WORD;
+}
+	YY_BREAK
+case 24:
+YY_RULE_SETUP
+#line 133 "shell.l"
+{
+    yylval.cpp_string = new std::string(yytext+1, yyleng-2);
     return WORD;
 }
 	YY_BREAK

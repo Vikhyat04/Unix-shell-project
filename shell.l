@@ -112,7 +112,7 @@ void myunputc(int c) {
   return TWOGREAT;
 }
 
-\"(\\.|[^\"\\])*\" {
+\\(\\.|[^\"\\])*\\ {
     char *escapedString = (char *)malloc(yyleng);
     int escapedStringLength = 0;
 
