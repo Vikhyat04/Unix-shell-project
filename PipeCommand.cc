@@ -173,6 +173,22 @@ void PipeCommand::execute() {
             Shell::TheShell->prompt();
 		    return;
 	    }
+        if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "cd") == 0){
+		    int error;
+		    if(_simpleCommands[i]->_numOfArguments == 1){
+			    error = chdir(getenv("HOME"));
+		    } else {
+			    error = chdir(_simpleCommands[i]->_arguments[1]->c_str());
+		    }
+
+		    if(error < 0){
+			    perror("cd");
+		    }
+
+		    clear();
+		    prompt();
+		    return;
+	    }
 
 
 
