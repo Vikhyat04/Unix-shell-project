@@ -123,4 +123,18 @@ void myunputc(int c) {
   return WORD;
 }
 
+\"(\\.|[^\"\\])*\" {
+    std::string escapedString;
+    for (int i = 1; i < yyleng - 1; ++i) {
+        if (yytext[i] == '\\' && i + 1 < yyleng - 1) {
+            escapedString += yytext[++i];
+        } else {
+            escapedString += yytext[i];
+        }
+    }
+
+    yylval.cpp_string = new std::string(escapedString);
+    return WORD;
+}
+
 %%
