@@ -154,7 +154,21 @@ void PipeCommand::execute() {
     int ret;
      unsigned long num_of_commands = _simpleCommands.size();
      for (unsigned long i = 0; i < num_of_commands; i++) {
-        
+        //
+        if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"setenv") == 0){
+		    int error = setenv(_simpleCommands[i]->_arguments[1], _simpleCommands[i]->_arguments[2], 1);
+		    if(error) {
+			    perror("setenv");
+		    }
+		    clear();
+		    prompt();
+		    return;
+	    }
+
+
+
+
+        //
         dup2(fdin, 0);
         close(fdin);
         if(i == num_of_commands - 1) {
