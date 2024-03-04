@@ -164,6 +164,15 @@ void PipeCommand::execute() {
             Shell::TheShell->prompt();
 		    return;
 	    }
+        if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"unsetenv") == 0){
+		    int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
+		    if(error) {
+			    perror("unsetenv");
+		    }
+		    clear();
+            Shell::TheShell->prompt();
+		    return;
+	    }
 
 
 
