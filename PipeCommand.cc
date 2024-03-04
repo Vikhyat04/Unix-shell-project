@@ -174,14 +174,14 @@ void PipeCommand::execute() {
 		    return;
 	    }
         if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "cd") == 0){
-		    int error;
+		    int path;
 		    if(_simpleCommands[i]->_arguments.size() == 1){
-			    error = chdir(getenv("HOME"));
+			    path = chdir(getenv("HOME"));
 		    } else {
-			    error = chdir(_simpleCommands[i]->_arguments[1]->c_str());
+			    path = chdir(_simpleCommands[i]->_arguments[1]->c_str());
 		    }
 
-		    if (chdir(path.c_str()) == -1) { 
+		    if (path == -1) { 
 			    fprintf(stderr, "cd: can't cd to %s\n", path.c_str());
             }
 
