@@ -174,15 +174,18 @@ void PipeCommand::execute() {
 		    return;
 	    }
         if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "cd") == 0){
-		    int path;
+		    int index;
+            std::string p;
 		    if(_simpleCommands[i]->_arguments.size() == 1){
-			    path = chdir(getenv("HOME"));
+			    index = chdir(getenv("HOME"));
+                p = getenv("HOME");
 		    } else {
-			    path = chdir(_simpleCommands[i]->_arguments[1]->c_str());
-		    }
+			    index = chdir(_simpleCommands[i]->_arguments[1]->c_str());
+                p = _simpleCommands[i]->_arguments[1]->c_str();
+            }
 
-		    if (path == -1) { 
-			    fprintf(stderr, "cd: can't cd to %s\n", path->c_str());
+		    if (index == -1) { 
+			    fprintf(stderr, "cd: can't cd to %s\n", p);
             }
 
 		    clear();
