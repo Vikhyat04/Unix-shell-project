@@ -128,7 +128,7 @@ void myunputc(int c) {
     int escapedStringLength = 0;
 
     for (int i = 1; i < yyleng - 1; ++i) {
-        if (yytext[i] == '\\' && i + 1 < yyleng - 1) {
+        if (yytext[i] == '\' && i + 1 < yyleng - 1) {
             escapedString[escapedStringLength++] = yytext[++i];
         } else {
             escapedString[escapedStringLength++] = yytext[i];

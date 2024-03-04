@@ -1000,25 +1000,29 @@ case 25:
 YY_RULE_SETUP
 #line 126 "shell.l"
 {
-    std::string escapedString;
+    char *escapedString = (char *)malloc(yyleng);
+    int escapedStringLength = 0;
+
     for (int i = 1; i < yyleng - 1; ++i) {
         if (yytext[i] == '\\' && i + 1 < yyleng - 1) {
-            escapedString += yytext[++i];
+            escapedString[escapedStringLength++] = yytext[++i];
         } else {
-            escapedString += yytext[i];
+            escapedString[escapedStringLength++] = yytext[i];
         }
     }
 
+    escapedString[escapedStringLength] = '\0';
     yylval.cpp_string = new std::string(escapedString);
+    free(escapedString);
     return WORD;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 140 "shell.l"
+#line 144 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1022 "lex.yy.cc"
+#line 1026 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2035,5 +2039,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 140 "shell.l"
+#line 144 "shell.l"
 
