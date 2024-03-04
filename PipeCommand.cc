@@ -237,7 +237,7 @@ void PipeCommand::execute() {
 
 				while(*envi){
 					printf("%s\n", *envi);
-					env++;
+					envi++;
 				}
 			}
             execvp(args[0], (char* const*)args);
