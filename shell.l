@@ -117,12 +117,6 @@ void myunputc(int c) {
     return WORD;
 }
 
-[^ \t\n;][^ \t\n;]*  {
-  /* Assume that file names have only alpha chars */
-  yylval.cpp_string = new std::string(yytext);
-  return WORD;
-}
-
 \"(\\.|[^\"\\])*\" {
     char *escapedString = (char *)malloc(yyleng);
     int escapedStringLength = 0;
@@ -139,6 +133,12 @@ void myunputc(int c) {
     yylval.cpp_string = new std::string(escapedString);
     free(escapedString);
     return WORD;
+}
+
+[^ \t\n;][^ \t\n;]*  {
+  /* Assume that file names have only alpha chars */
+  yylval.cpp_string = new std::string(yytext);
+  return WORD;
 }
 
 %%
