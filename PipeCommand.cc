@@ -181,9 +181,9 @@ void PipeCommand::execute() {
 			    error = chdir(_simpleCommands[i]->_arguments[1]->c_str());
 		    }
 
-		    if(error < 0){
-			    perror("cd");
-		    }
+		    if (chdir(path.c_str()) == -1) { 
+			    fprintf(stderr, "cd: can't cd to %s\n", path.c_str());
+            }
 
 		    clear();
 		    Shell::TheShell->prompt();
