@@ -112,20 +112,13 @@ void myunputc(int c) {
   return TWOGREAT;
 }
 
+\"[^\n\"]*\" {
+    yylval.cpp_string = new std::string(yytext);
+    return WORD;
+}
 
 [^ \t\n;][^ \t\n;]*  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;
-}
-
-\"[^\n\"]*\" { 
-    yylval.cpp_string = strdup(yytext+1);
-
-    if (yylval.cpp_string[yyleng-2] == '\"') {
-        yylval.cpp_string = new std::string(yytext);
-        yylval.cpp_string[yyleng-2] = 0;
-    }
-
-    return WORD;
 }
