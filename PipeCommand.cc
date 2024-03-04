@@ -182,7 +182,7 @@ void PipeCommand::execute() {
 		    }
 
 		    if (path == -1) { 
-			    fprintf(stderr, "cd: can't cd to %s\n", path.c_str());
+			    fprintf(stderr, "cd: can't cd to %s\n", path->c_str());
             }
 
 		    clear();
