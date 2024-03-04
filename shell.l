@@ -113,7 +113,7 @@ void myunputc(int c) {
 }
 
 \"[^\n\"]*\" {
-    yylval.cpp_string = new std::string(yytext);
+    yylval.cpp_string = new std::string(yytext+1, yyleng-2);
     return WORD;
 }
 
