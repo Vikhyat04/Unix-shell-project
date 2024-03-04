@@ -239,11 +239,11 @@ void PipeCommand::execute() {
 					printf("%s\n", *envi);
 					envi++;
 				}
+                fflush(stdout);
 			} else {
                 execvp(args[0], (char* const*)args);
                 perror("execvp");
                 exit(1);
-
             }
         }
     }
