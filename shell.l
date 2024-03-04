@@ -124,16 +124,20 @@ void myunputc(int c) {
 }
 
 \"(\\.|[^\"\\])*\" {
-    std::string escapedString;
+    char *escapedString = (char *)malloc(yyleng);
+    int escapedStringLength = 0;
+
     for (int i = 1; i < yyleng - 1; ++i) {
         if (yytext[i] == '\\' && i + 1 < yyleng - 1) {
-            escapedString += yytext[++i];
+            escapedString[escapedStringLength++] = yytext[++i];
         } else {
-            escapedString += yytext[i];
+            escapedString[escapedStringLength++] = yytext[i];
         }
     }
 
+    escapedString[escapedStringLength] = '\0';
     yylval.cpp_string = new std::string(escapedString);
+    free(escapedString);
     return WORD;
 }
 
