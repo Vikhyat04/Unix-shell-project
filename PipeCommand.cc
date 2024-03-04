@@ -185,7 +185,7 @@ void PipeCommand::execute() {
             }
 
 		    if (index == -1) { 
-			    fprintf(stderr, "cd: can't cd to %s\n", p);
+			    fprintf(stderr, "cd: can't cd to %s\n", p.c_str());
             }
 
 		    clear();
