@@ -27,7 +27,7 @@ public:
 
   // Expands environment vars and wildcards of a SimpleCommand and
   // returns the arguments to pass to execvp.
-  char ** expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber);
+  std::vector<std::string> expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber);
 
 };
 
