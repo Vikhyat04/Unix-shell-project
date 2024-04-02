@@ -193,9 +193,7 @@ void PipeCommand::execute() {
 		    return;
 	    }
 
-        std::vector<std::string> args3(_simpleCommands[i]->_arguments.size());
-
-        args3 = expandEnvVarsAndWildcards(i);
+        std::vector<std::string> args3 = s->_arguments;// expandEnvVarsAndWildcards(i);
 
 
         //
@@ -225,16 +223,15 @@ void PipeCommand::execute() {
         dup2(fdout, 1);
         close(fdout);
         
-        SimpleCommand *s=_simpleCommands[i];
         const char ** args = (const char **)
-        malloc((s->_arguments.size()+1)*sizeof(char*));
-        for ( unsigned long j=0;j < s->_arguments.size(); j++) {
+        malloc((args3.size()+1)*sizeof(char*));
+        for ( unsigned long j=0;j < args3.size(); j++) {
             args[j] = args3[j].c_str();
         }
-        args[s->_arguments.size()] = NULL;
+        args[args3.size()] = NULL;
         ret = fork();
         if (ret == 0) {
-            if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv") == 0){
+            if(strcmp(args[0], "printenv") == 0){
 				char ** envi = environ;
 
 				while(*envi){
