@@ -108,7 +108,7 @@ main(int argc, char **argv) {
     yyset_in(f);
   }
   const char* relativePath = argv[0];
-  char resolvedPath[PATH_MAX];
+  char resolvedPath[256];
 
   char* result = realpath(relativePath, resolvedPath);
 
