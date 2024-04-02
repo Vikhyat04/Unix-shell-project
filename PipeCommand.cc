@@ -260,7 +260,7 @@ void PipeCommand::execute() {
         waitpid(ret, &status, 0);
         setenv("?", std::to_string(WEXITSTATUS(status)).c_str(), 1);
     } else {
-        setenv("!",ret.c_str(),1);
+        setenv("!",std::to_string(ret).c_str(),1);
     }
     
 
