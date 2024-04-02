@@ -9,8 +9,14 @@
 
 %{
 
+#include <cstdio>
 #include <cstring>
 #include "y.tab.hh"
+
+void push_buffer(FILE * yyin) {
+    yy_push_to_buffer(
+      yy_create_buffer( yyin, YY_BUF_SIZE ) );
+}
 
 static  void yyunput (int c,char *buf_ptr  );
 
@@ -143,5 +149,14 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
+
+<<EOF>> {
+      yypop_buffer_state();
+      if ( !YY_CURRENT_BUFFER )
+                {
+                yyterminate();
+                }
+}
+
 
 %%

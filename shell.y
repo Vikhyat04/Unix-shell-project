@@ -118,11 +118,10 @@ command_line:
          }
         | if_command SEPARATOR 
          {
-			printf("Hi");
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
          }
-        | while_command SEPARATOR {printf("while\n"); }
+        | while_command SEPARATOR {printf("while\n");}
         | for_command SEPARATOR {printf("for\n"); }
         | SEPARATOR /*accept empty cmd line*/
         | error SEPARATOR {yyerrok; Shell::TheShell->clear(); }

@@ -534,7 +534,7 @@ static const yytype_uint8 yyrline[] =
 {
        0,    37,    37,    39,    41,    44,    44,    51,    57,    65,
       70,    75,    82,    88,    92,    98,    99,   102,   106,   109,
-     110,   113,   120,   125,   126,   127,   128,   131,   136,   143,
+     110,   113,   119,   125,   126,   127,   128,   131,   136,   143,
      148,   142,   162,   165
 };
 #endif
@@ -1250,17 +1250,17 @@ yyreduce:
   case 21: /* command_line: pipe_list io_modifier_list background_optional SEPARATOR  */
 #line 114 "shell.y"
          { 
-			printf("Pipe");
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_pipeCommand);
 	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
          }
-#line 1259 "y.tab.cc"
+#line 1258 "y.tab.cc"
     break;
 
   case 22: /* command_line: if_command SEPARATOR  */
-#line 121 "shell.y"
+#line 120 "shell.y"
          {
+			printf("Hi");
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
          }

@@ -28,9 +28,10 @@
 
 #include "PipeCommand.hh"
 #include "Shell.hh"
+#include "shell.l"
 
-// void yypush_buffer_state ( YY_BUFFER_STATE buffer );
-// YY_BUFFER_STATE yy_create_buffer ( FILE *file, int size )
+void yypush_buffer_state ( YY_BUFFER_STATE buffer );
+YY_BUFFER_STATE yy_create_buffer ( FILE *file, int size )
 
 
 PipeCommand::PipeCommand() {
@@ -169,8 +170,7 @@ void PipeCommand::execute() {
 	    }
         if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"source") == 0){
             FILE* yyin = fopen(_simpleCommands[1]->_arguments[1]->c_str(), "r");
-            //yy_push_to_buffer(
-            //    yy_create_buffer( yyin, YY_BUF_SIZE ) );
+            push_buffer(yyin);
 		    clear();
             Shell::TheShell->prompt();
 		    return;
