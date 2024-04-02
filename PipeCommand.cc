@@ -292,6 +292,7 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
             if (arg[j] == '$' && j + 1 != arg.length()) {
                 if (arg[j + 1] == '{') {
                     std::string var = arg.substr(j + 2, arg.find('}', j) - j - 2);
+                    setenv("$", std::to_string(getpid()).c_str(), 1);
                     char* envValue = getenv(var.c_str());
                     if (envValue) {
                         updatedArg += envValue;
