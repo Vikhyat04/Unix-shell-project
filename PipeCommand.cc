@@ -281,12 +281,12 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(SimpleCommand* s
     
     std::vector<std::string> args(s->_arguments.size());
 
-    for(int i=0;i<s[ind].size();i++) {
+    for(int i=0;i<s->_arguments.size();i++) {
         args[i] = *s->_arguments[i];
     }
 
 
-    for (int i = 0; i < args[ind]->size(); i++) {
+    for (int i = 0; i < args->size(); i++) {
         std::string& arg=args[i];
         
         if (arg.size() > 2 && arg[0] == '$' && arg[1] == '{' && arg[arg.length()-1] == '}') {
@@ -302,7 +302,7 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(SimpleCommand* s
         }
     }
 
-    setenv("_",args[args.length-1].c_str,1);
+    setenv("_",args[args.size()-1].c_str,1);
 
     simpleCommandNumber->print(); 
     return args;
