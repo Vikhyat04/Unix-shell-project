@@ -112,13 +112,13 @@ SEPARATOR:
 command_line:
 	 pipe_list io_modifier_list background_optional SEPARATOR 
          { 
-			printf("Pipe");
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_pipeCommand);
 	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
          }
         | if_command SEPARATOR 
          {
+			printf("Hi");
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
          }
