@@ -131,6 +131,27 @@ void myunputc(int c) {
     return WORD;
 }
 
+[^ \t\n|><&]*\\[^ \t\n]* {
+
+  int i=0;
+  char *esc;
+  esc = new char[strlen(yytext)*2];
+  char *args = yytext;
+  while(*args) {
+    if(*args == '\\') {
+      esc[i] = *(++args);
+      i++;
+    } else {
+      esc[i] = *args;
+      i++;
+    }
+    args++;
+  }
+  esc[i] = '\0';
+  yylval.cpp_string = new std::string(esc);
+  return WORD;
+}
+
 \"[^\n\"]*\" {
     yylval.cpp_string = new std::string(yytext+1, yyleng-2);
     return WORD;
