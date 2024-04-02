@@ -193,6 +193,8 @@ void PipeCommand::execute() {
 		    return;
 	    }
 
+        SimpleCommand * s = _simpleCommands[i];
+
         std::vector<std::string> args3 = s->_arguments;// expandEnvVarsAndWildcards(i);
 
 
