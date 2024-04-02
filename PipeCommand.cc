@@ -288,8 +288,8 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
     for (int i = 0; i < args.size(); i++) {
         std::string & arg=args[i];
         
-        if (arg.size() > 2 && arg[0] == '$' && arg[1] == '{' && arg[arg.length()-1] == '}') {
-            std::string var = arg.substr(2, arg.size() - 3);
+        if (arg.size() > 2 && arg[0] == '$' && arg[1] == '{') {
+            std::string var = arg.substr(2, arg.find('}') - 2);
             std::string value;
 		    setenv("$", std::to_string(getpid()).c_str(), 1);
 
