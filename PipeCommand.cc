@@ -190,7 +190,7 @@ void PipeCommand::execute() {
 		    int index;
             std::string p;
 		    index = chdir(args3[1]->c_str());
-            p = args3[1]->c_str();
+            p = args3[1].c_str();
 
 		    if (index == -1) { 
 			    fprintf(stderr, "cd: can't cd to %s\n", p.c_str());
