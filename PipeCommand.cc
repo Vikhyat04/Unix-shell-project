@@ -195,7 +195,7 @@ void PipeCommand::execute() {
 
         std::vector<std::string> args3(s->_arguments.size());
 
-        args3 = expandEnvVarsAndWildcards(_simpleCommands[i]);
+        args3 = expandEnvVarsAndWildcards(i);
 
 
         //
@@ -286,7 +286,7 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(SimpleCommand* s
     }
 
 
-    for (int i = 0; i < args->size(); i++) {
+    for (int i = 0; i < args.size(); i++) {
         std::string& arg=args[i];
         
         if (arg.size() > 2 && arg[0] == '$' && arg[1] == '{' && arg[arg.length()-1] == '}') {
