@@ -107,7 +107,7 @@ background_optional:
 	;
 SEPARATOR:
 	NEWLINE {
-		printf("KODA");
+		printf("HOE");
 	}
 	| SEMI
 	;
