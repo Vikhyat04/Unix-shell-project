@@ -166,7 +166,7 @@ void PipeCommand::execute() {
 		    return;
 	    }
         if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"source") == 0){
-            FILE* yyin = fopen(_simpleCommands[1]->_arguments[1]->c_str(), "r");
+            //* yyin = fopen(_simpleCommands[1]->_arguments[1]->c_str(), "r");
              printf("Hello, world!\n");
             //push_buffer(yyin);
             Shell::TheShell->prompt();
