@@ -13,9 +13,18 @@
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
+YY_BUFFER_STATE yy_create_buffer ( FILE *file, int size );
+void yypush_buffer_state ( YY_BUFFER_STATE buffer );
+void yypop_buffer_state ( );
 
 void myunputc(int c) {
   unput(c);
+}
+
+void push_buffer (FILE *yyin) {
+  yy_switch_to_buffer(
+      yy_create_buffer( yyin, YY_BUF_SIZE ) );
+  
 }
 
 %}
@@ -143,6 +152,16 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
+
+<<EOF>> {
+			yypop_buffer_state();
+
+            if ( !YY_CURRENT_BUFFER )
+                {
+                yyterminate();
+                }
+            }
+
 
 
 %%
