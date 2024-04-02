@@ -193,9 +193,9 @@ void PipeCommand::execute() {
 		    return;
 	    }
 
-        std::vector<std::string> args3(s->_arguments.size());
+        std::vector<std::string> args3(_simpleCommands[i]->_arguments.size());
 
-        args3 = expandEnvVarsAndWildcards(&i);
+        args3 = expandEnvVarsAndWildcards(i);
 
 
         //
@@ -229,7 +229,7 @@ void PipeCommand::execute() {
         const char ** args = (const char **)
         malloc((s->_arguments.size()+1)*sizeof(char*));
         for ( unsigned long j=0;j < s->_arguments.size(); j++) {
-            args[j] = args3[j]->c_str();
+            args[j] = args3[j].c_str();
         }
         args[s->_arguments.size()] = NULL;
         ret = fork();
@@ -257,10 +257,10 @@ void PipeCommand::execute() {
 	close(deferr);
     if (!_background) {
         int status;
-        waitpid(ret, status, 0);
+        waitpid(ret, &status, 0);
         setenv("?", std::to_string(WEXITSTATUS(status)).c_str(), 1);
     } else {
-        setenv("!",ret,1);
+        setenv("!",ret.c_str(),1);
     }
     
 
