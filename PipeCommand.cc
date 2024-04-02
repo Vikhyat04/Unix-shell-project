@@ -302,9 +302,6 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
     }
 
    setenv("_", args[args.size() - 1].c_str(), 1);
-
-
-    s->print(); 
     return args;
 }
 
