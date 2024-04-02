@@ -29,7 +29,7 @@
 #include "PipeCommand.hh"
 #include "Shell.hh"
 
-void push_buffer();
+void push_buffer(FILE *yyin);
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
