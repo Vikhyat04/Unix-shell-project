@@ -162,8 +162,8 @@ void PipeCommand::execute() {
         std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
 
         //
-        if(strcmp(args3[0]->c_str(),"setenv") == 0){
-		    int error = setenv(args3[1]->c_str(), args3[2]->c_str(), 1);
+        if(strcmp(args3[0].c_str(),"setenv") == 0){
+		    int error = setenv(args3[1].c_str(), args3[2].c_str(), 1);
 		    if(error) {
 			    perror("setenv");
 		    }
@@ -171,14 +171,14 @@ void PipeCommand::execute() {
             Shell::TheShell->prompt();
 		    return;
 	    }
-        if(strcmp(args3[0]->c_str(),"source") == 0){
-            FILE* yyin = fopen(args3[1]->c_str(), "r");
+        if(strcmp(args3[0].c_str(),"source") == 0){
+            FILE* yyin = fopen(args3[1].c_str(), "r");
             push_buffer(yyin);
             Shell::TheShell->prompt();
 		    return;
 	    }
-        if(strcmp(args3[0]->c_str(),"unsetenv") == 0){
-		    int error = unsetenv(args3[1]->c_str());
+        if(strcmp(args3[0].c_str(),"unsetenv") == 0){
+		    int error = unsetenv(args3[1].c_str());
 		    if(error) {
 			    perror("unsetenv");
 		    }
@@ -186,10 +186,10 @@ void PipeCommand::execute() {
             Shell::TheShell->prompt();
 		    return;
 	    }
-        if(strcmp(args3[0]->c_str(), "cd") == 0){
+        if(strcmp(args3[0].c_str(), "cd") == 0){
 		    int index;
             std::string p;
-		    index = chdir(args3[1]->c_str());
+		    index = chdir(args3[1].c_str());
             p = args3[1].c_str();
 
 		    if (index == -1) { 
