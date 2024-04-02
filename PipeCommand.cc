@@ -29,9 +29,6 @@
 #include "PipeCommand.hh"
 #include "Shell.hh"
 
-void yypush_buffer_state ( YY_BUFFER_STATE buffer );
-YY_BUFFER_STATE yy_create_buffer ( FILE *file, int size )
-
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
