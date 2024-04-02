@@ -12,7 +12,6 @@
 #include <cstring>
 #include "y.tab.hh"
 
-
 static  void yyunput (int c,char *buf_ptr  );
 
 void myunputc(int c) {
@@ -144,5 +143,6 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
+
 
 %%
