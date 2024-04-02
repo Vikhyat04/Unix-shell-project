@@ -155,9 +155,15 @@ void PipeCommand::execute() {
     int ret;
      unsigned long num_of_commands = _simpleCommands.size();
      for (unsigned long i = 0; i < num_of_commands; i++) {
+
         //
-        if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"setenv") == 0){
-		    int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
+        SimpleCommand * s = _simpleCommands[i];
+
+        std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
+
+        //
+        if(strcmp(args3[0]->c_str(),"setenv") == 0){
+		    int error = setenv(args3[1]->c_str(), args3[2]->c_str(), 1);
 		    if(error) {
 			    perror("setenv");
 		    }
@@ -165,14 +171,14 @@ void PipeCommand::execute() {
             Shell::TheShell->prompt();
 		    return;
 	    }
-        if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"source") == 0){
-            FILE* yyin = fopen(_simpleCommands[i]->_arguments[1]->c_str(), "r");
+        if(strcmp(args3[0]->c_str(),"source") == 0){
+            FILE* yyin = fopen(args3[1]->c_str(), "r");
             push_buffer(yyin);
             Shell::TheShell->prompt();
 		    return;
 	    }
-        if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"unsetenv") == 0){
-		    int error = unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
+        if(strcmp(args3[0]->c_str(),"unsetenv") == 0){
+		    int error = unsetenv(args3[1]->c_str());
 		    if(error) {
 			    perror("unsetenv");
 		    }
@@ -180,16 +186,11 @@ void PipeCommand::execute() {
             Shell::TheShell->prompt();
 		    return;
 	    }
-        if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "cd") == 0){
+        if(strcmp(args3[0]->c_str(), "cd") == 0){
 		    int index;
             std::string p;
-		    if(_simpleCommands[i]->_arguments.size() == 1){
-			    index = chdir(getenv("HOME"));
-                p = getenv("HOME");
-		    } else {
-			    index = chdir(_simpleCommands[i]->_arguments[1]->c_str());
-                p = _simpleCommands[i]->_arguments[1]->c_str();
-            }
+		    index = chdir(args3[1]->c_str());
+            p = args3[1]->c_str();
 
 		    if (index == -1) { 
 			    fprintf(stderr, "cd: can't cd to %s\n", p.c_str());
@@ -199,11 +200,6 @@ void PipeCommand::execute() {
 		    Shell::TheShell->prompt();
 		    return;
 	    }
-
-        SimpleCommand * s = _simpleCommands[i];
-
-        std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
-
 
         //
         dup2(fdin, 0);
