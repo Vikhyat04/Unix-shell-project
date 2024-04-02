@@ -106,9 +106,7 @@ background_optional:
 	|
 	;
 SEPARATOR:
-	NEWLINE {
-		printf("HOE");
-	}
+	NEWLINE 
 	| SEMI
 	;
 command_line:

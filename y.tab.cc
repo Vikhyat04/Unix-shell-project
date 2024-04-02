@@ -1250,7 +1250,7 @@ yyreduce:
   case 19: /* SEPARATOR: NEWLINE  */
 #line 109 "shell.y"
                 {
-		printf("KODA");
+		printf("HOE");
 	}
 #line 1256 "y.tab.cc"
     break;

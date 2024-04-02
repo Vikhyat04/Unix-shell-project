@@ -29,6 +29,8 @@
 #include "PipeCommand.hh"
 #include "Shell.hh"
 
+#include 
+
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
@@ -165,7 +167,9 @@ void PipeCommand::execute() {
 		    return;
 	    }
         if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"source") == 0){
-            //int fn = fopen();
+            FILE* yyin = fopen(_simpleCommands[1]->_arguments[1]->c_str(), "r");
+            //yy_push_to_buffer(
+            //    yy_create_buffer( yyin, YY_BUF_SIZE ) );
 		    clear();
             Shell::TheShell->prompt();
 		    return;
