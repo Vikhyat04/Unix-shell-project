@@ -22,7 +22,7 @@ void myunputc(int c) {
 }
 
 void push_buffer (FILE *yyin) {
-  yy_switch_to_buffer(
+  yypush_buffer_state(
       yy_create_buffer( yyin, YY_BUF_SIZE ) );
   
 }
