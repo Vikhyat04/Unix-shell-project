@@ -189,8 +189,13 @@ void PipeCommand::execute() {
         if(strcmp(args3[0].c_str(), "cd") == 0){
 		    int index;
             std::string p;
-		    index = chdir(args3[1].c_str());
-            p = args3[1].c_str();
+            if (args3.size()==1) {
+                index = chdir(getenv("HOME"));
+                p = args3[1].c_str();
+            } else {
+		        index = chdir(args3[1].c_str());
+                p = args3[1].c_str();
+            }
 
 		    if (index == -1) { 
 			    fprintf(stderr, "cd: can't cd to %s\n", p.c_str());
