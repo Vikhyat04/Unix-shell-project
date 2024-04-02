@@ -633,8 +633,8 @@ char *yytext_ptr;
 #include <cstring>
 #include "y.tab.hh"
 
-yypush_buffer_state ( YY_BUFFER_STATE buffer );
-yypop_buffer_state ( );
+void yypush_buffer_state ( YY_BUFFER_STATE buffer );
+void yypop_buffer_state ( );
 YY_BUFFER_STATE yy_create_buffer ( FILE *file, int size );
 
 void push_buffer(FILE * yyin) {

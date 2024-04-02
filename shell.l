@@ -18,7 +18,7 @@ void yypop_buffer_state ( );
 YY_BUFFER_STATE yy_create_buffer ( FILE *file, int size );
 
 void push_buffer(FILE * yyin) {
-    yy_push_to_buffer(
+    yypush_buffer_state(
       yy_create_buffer( yyin, YY_BUF_SIZE ) );
 }
 
