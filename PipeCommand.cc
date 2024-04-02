@@ -191,7 +191,7 @@ void PipeCommand::execute() {
             std::string p;
             if (args3.size()==1) {
                 index = chdir(getenv("HOME"));
-                p = args3[1].c_str();
+                p = args3[0].c_str();
             } else {
 		        index = chdir(args3[1].c_str());
                 p = args3[1].c_str();
