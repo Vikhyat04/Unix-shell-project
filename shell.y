@@ -106,7 +106,9 @@ background_optional:
 	|
 	;
 SEPARATOR:
-	NEWLINE
+	NEWLINE {
+		printf("KODA");
+	}
 	| SEMI
 	;
 command_line:
