@@ -185,7 +185,6 @@ void PipeCommand::execute() {
             std::string p;
 		    if(_simpleCommands[i]->_arguments.size() == 1){
 			    index = chdir(getenv("HOME"));
-                printf("Hello");
                 p = getenv("HOME");
 		    } else {
 			    index = chdir(_simpleCommands[i]->_arguments[1]->c_str());
