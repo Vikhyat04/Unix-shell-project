@@ -188,6 +188,7 @@ void PipeCommand::execute() {
                 p = getenv("HOME");
 		    } else {
 			    index = chdir(_simpleCommands[i]->_arguments[1]->c_str());
+                printf("Hello");
                 p = _simpleCommands[i]->_arguments[1]->c_str();
             }
 
