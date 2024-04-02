@@ -280,29 +280,34 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
     
     std::vector<std::string> args(s->_arguments.size());
 
-    for(int i=0;i<s->_arguments.size();i++) {
+    for(int i = 0; i < s->_arguments.size(); i++) {
         args[i] = *s->_arguments[i];
     }
 
-
     for (int i = 0; i < args.size(); i++) {
-        std::string & arg=args[i];
+        std::string &arg = args[i];
+        std::string updatedArg = "";
         
-        if (arg.size() > 2 && arg[0] == '$' && arg[1] == '{') {
-            std::string var = arg.substr(2, arg.find('}') - 2);
-            std::string value;
-		    setenv("$", std::to_string(getpid()).c_str(), 1);
-
-            char* envValue = getenv(var.c_str());
-            if (envValue) {
-                value = envValue;
+        for (int j = 0; j < arg.length(); j++) {
+            if (arg[j] == '$' && j + 1 != arg.length()) {
+                if (arg[j + 1] == '{') {
+                    std::string var = arg.substr(j + 2, arg.find('}', j) - j - 2);
+                    char* envValue = getenv(var.c_str());
+                    if (envValue) {
+                        updatedArg += envValue;
+                        j += var.length() + 2;
+                    }
+                }
+            } else {
+                updatedArg += arg[j];
             }
-            args[i] = value;
         }
+        args[i] = updatedArg;
     }
 
-   setenv("_", args[args.size() - 1].c_str(), 1);
-   return args;
+    setenv("_", args[args.size() - 1].c_str(), 1);
+    return args;
 }
+
 
 
