@@ -106,7 +106,13 @@ main(int argc, char **argv) {
         exit(1);
     }
     yyset_in(f);
-  }  
+  }
+  const char* relativePath = argv[0];
+  char resolvedPath[PATH_MAX];
+
+  char* result = realpath(relativePath, resolvedPath);
+
+  setenv("SHELL",result,1);
 
   Shell::TheShell = new Shell();
 

@@ -165,7 +165,7 @@ void PipeCommand::execute() {
 		    return;
 	    }
         if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"unsetenv") == 0){
-		    int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
+		    int error = unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
 		    if(error) {
 			    perror("unsetenv");
 		    }
@@ -193,7 +193,9 @@ void PipeCommand::execute() {
 		    return;
 	    }
 
+        std::vector<std::string> args3(s->_arguments.size());
 
+        args3 = expandEnvVarsAndWildcards(_simpleCommands[i]);
 
 
         //
@@ -226,8 +228,8 @@ void PipeCommand::execute() {
         SimpleCommand *s=_simpleCommands[i];
         const char ** args = (const char **)
         malloc((s->_arguments.size()+1)*sizeof(char*));
-        for ( unsigned long j=0;j < s->_arguments.size(); j++ ) {
-            args[j] = s->_arguments[j]->c_str();
+        for ( unsigned long j=0;j < s->_arguments.size(); j++) {
+            args[j] = args3[j]->c_str();
         }
         args[s->_arguments.size()] = NULL;
         ret = fork();
@@ -254,15 +256,13 @@ void PipeCommand::execute() {
 	close(defout);
 	close(deferr);
     if (!_background) {
-        waitpid(ret, NULL, 0);
+        int status;
+        waitpid(ret, status, 0);
+        setenv("?", std::to_string(WEXITSTATUS(status)).c_str(), 1);
+    } else {
+        setenv("!",ret,1);
     }
     
-    
-
-
-
-
-
 
 
     // Clear to prepare for next command
@@ -274,11 +274,38 @@ void PipeCommand::execute() {
 
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
-char ** 
-PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
-{
-    simpleCommandNumber->print();
-    return NULL;
+std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(SimpleCommand* simpleCommandNumber) {
+    int ind = *simpleCommandNumber; 
+
+    SimpleCommand* s = _simpleCommands[ind];
+    
+    std::vector<std::string> args(s->_arguments.size());
+
+    for(int i=0;i<s[ind].size();i++) {
+        args[i] = *s->_arguments[i];
+    }
+
+
+    for (int i = 0; i < args[ind]->size(); i++) {
+        std::string& arg=args[i];
+        
+        if (arg.size() > 2 && arg[0] == '$' && arg[1] == '{' && arg[arg.length()-1] == '}') {
+            std::string var = arg.substr(2, arg.size() - 2);
+            std::string value;
+		    setenv("$", std::to_string(getpid()).c_str(), 1);
+
+            char* envValue = getenv(var.c_str());
+            if (envValue) {
+                value = envValue;
+            }
+            args[i] = value;
+        }
+    }
+
+    setenv("_",args[args.length-1].c_str,1);
+
+    simpleCommandNumber->print(); 
+    return args;
 }
 
 
