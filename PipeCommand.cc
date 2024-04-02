@@ -275,7 +275,7 @@ void PipeCommand::execute() {
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
 std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleCommandNumber) {
-    int ind = *simpleCommandNumber; 
+    int ind = simpleCommandNumber; 
 
     SimpleCommand* s = _simpleCommands[ind];
     
