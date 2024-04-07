@@ -327,8 +327,8 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
             std::string &arg = args[i];
             for (int j = 0; j < arg.length(); j++) {
                 if (arg[j] == '$' && j + 1 != arg.length()) {
+                                                                                                std::cout << "Purdue" << std::endl;
                     if (arg[j + 1] == '(') {
-                                                                            std::cout << "Purdue" << std::endl;
                         std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
                         int fdpipein[2];
 	                    int fdpipeout[2];
