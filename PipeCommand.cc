@@ -160,7 +160,7 @@ void PipeCommand::execute() {
         SimpleCommand * s = _simpleCommands[i];
 
         std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
-        //args3 = subshells(args3);
+        args3 = subshells(args3);
 
         //
         if(strcmp(args3[0].c_str(),"setenv") == 0){
@@ -320,7 +320,6 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
 }
 
 std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
-
 	    int tmpin = dup(0);
 	    int tmpout = dup(1);
         for (int i = 0; i < args.size(); i++) {
@@ -375,8 +374,6 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                         j += exp.length() + 2;;
                     }
                 }
-
-
             }
         }
         return args;
