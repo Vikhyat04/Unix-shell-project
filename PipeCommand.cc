@@ -320,125 +320,68 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
 }
 
 std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
-    int tmpin = dup(0);
-    int tmpout = dup(1);
-    for (size_t i = 0; i < args.size(); i++) {
-        std::string &arg = args[i];
-        for (size_t j = 0; j < arg.length(); j++) {
-            if (arg[j] == '$' && j + 1 < arg.length() && arg[j + 1] == '(') {
-                    std::cout << "hi" << std::endl;
-                std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
-                int fdpipein[2];
-                int fdpipeout[2];
 
-                pipe(fdpipein);
-                pipe(fdpipeout);
+	    int tmpin = dup(0);
+	    int tmpout = dup(1);
+        for (int i = 0; i < args.size(); i++) {
+            std::string &arg = args[i];
+            for (size_t j = 0; j < arg.length(); j++) {
+                std::cout << j << std::endl;
+                if (arg[j] == '$' && j + 1 < arg.length()) {
+                    if (arg[j + 1] == '(') {
+                        std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
+                        int fdpipein[2];
+	                    int fdpipeout[2];
+	                    pipe(fdpipein);
+	                    pipe(fdpipeout);
 
-                write(fdpipein[1], exp.c_str(), exp.length());
-                write(fdpipein[1], "\n", 1);
-                write(fdpipein[1], "exit\n", 5);
-                close(fdpipein[1]);
+                        write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
+	                    write(fdpipein[1], "\n", 1);
+	                    write(fdpipein[1], "exit", 4);
+	                    write(fdpipein[1], "\n", 1);
 
-                dup2(fdpipein[0], 0);
-                close(fdpipein[0]);
-                dup2(fdpipeout[1], 1);
-                close(fdpipeout[1]);
+	                    close(fdpipein[1]);
 
-                int ret = fork();
-                if (ret == 0) {
-                    execl("/bin/sh", "/bin/sh", NULL);
-                    _exit(1);
-                } else if (ret < 0) {
-                    perror("fork");
-                    exit(1);
-                }
+	                    dup2(fdpipein[0], 0);
+	                    close(fdpipein[0]);
+	                    dup2(fdpipeout[1], 1);
+	                    close(fdpipeout[1]);
 
-                dup2(tmpin, 0);
-                dup2(tmpout, 1);
-                close(tmpin);
-                close(tmpout);
+                        int ret = fork();
+	                    if (ret == 0) {
+		                    execvp("/proc/self/exe", NULL);
+		                    _exit(1);
+	                    } else if (ret < 0) {
+		                    perror("fork");
+		                    exit(1);
+	                    }
+                        printf("HI");
+	                    dup2(tmpin, 0);
+	                    dup2(tmpout, 1);
+	                    close(tmpin);
+	                    close(tmpout);
 
-                char ch;
-                std::string result;
-                while (read(fdpipeout[0], &ch, 1) > 0) {
-                    if (ch == '\n') {
-                        result += ' ';
-                    } else {
-                        result += ch;
+	                    char ch;
+	                    char * buffer = (char *) malloc (4096);
+	                    int k = 0;
+	
+	                    while (read(fdpipeout[0], &ch, 1)) {
+		                    if (ch == '\n') buffer[k++] = ' ';
+		                    else buffer[k++] = ch;
+	                    }
+	                    buffer[k] = '\0';
+                        close(fdpipeout[0]);
+                        args[i] = buffer;
+                        j += exp.length() + 2;;
                     }
                 }
-                close(fdpipeout[0]);
-                args[i] = result;
-                j += exp.length() + 2;
+
+
             }
         }
-    }
-    return args;
+        return args;
+
 }
-
-
-// std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
-
-// 	    int tmpin = dup(0);
-// 	    int tmpout = dup(1);
-//         for (int i = 0; i < args.size(); i++) {
-//             std::string &arg = args[i];
-//             for (size_t j = 0; j < arg.length(); j++) {
-//                 std::cout << j << std::endl;
-//                 if (arg[j] == '$' && j + 1 < arg.length()) {
-//                     if (arg[j + 1] == '(') {
-//                         std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
-//                         int fdpipein[2];
-// 	                    int fdpipeout[2];
-// 	                    pipe(fdpipein);
-// 	                    pipe(fdpipeout);
-
-//                         write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
-// 	                    write(fdpipein[1], "\n", 1);
-// 	                    write(fdpipein[1], "exit", 4);
-// 	                    write(fdpipein[1], "\n", 1);
-
-// 	                    close(fdpipein[1]);
-
-// 	                    dup2(fdpipein[0], 0);
-// 	                    close(fdpipein[0]);
-// 	                    dup2(fdpipeout[1], 1);
-// 	                    close(fdpipeout[1]);
-
-//                         int ret = fork();
-// 	                    if (ret == 0) {
-// 		                    execvp("/proc/self/exe", NULL);
-// 		                    _exit(1);
-// 	                    } else if (ret < 0) {
-// 		                    perror("fork");
-// 		                    exit(1);
-// 	                    }
-//                         printf("HI");
-// 	                    dup2(tmpin, 0);
-// 	                    dup2(tmpout, 1);
-// 	                    close(tmpin);
-// 	                    close(tmpout);
-
-// 	                    char ch;
-// 	                    char * buffer = (char *) malloc (4096);
-// 	                    int k = 0;
-	
-// 	                    while (read(fdpipeout[0], &ch, 1)) {
-// 		                    if (ch == '\n') buffer[k++] = ' ';
-// 		                    else buffer[k++] = ch;
-// 	                    }
-// 	                    buffer[k] = '\0';
-//                         args[i] = buffer;
-//                         j += exp.length() + 2;;
-//                     }
-//                 }
-
-
-//             }
-//         }
-//         return args;
-
-// }
 
 
 
