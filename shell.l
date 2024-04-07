@@ -147,6 +147,10 @@ void push_buffer (FILE *yyin) {
     return WORD;
 }
 
+\$\([^)]+\) {
+  return WORD;
+}
+
 
 [^ \t\n;|<>&][^ \t\n;|<>&]*  {
   /* Assume that file names have only alpha chars */
