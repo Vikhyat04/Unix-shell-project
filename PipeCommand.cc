@@ -378,6 +378,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 
             }
         }
+        return args;
 
 }
 
