@@ -326,7 +326,6 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
         for (int i = 0; i < args.size(); i++) {
             std::string &arg = args[i];
             for (int j = 0; j < arg.length(); j++) {
-                            std::cout << "Purdue" << std::endl;
                 if (arg[j] == '$' && j + 1 != arg.length()) {
                     if (arg[j + 1] == '(') {
                         std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
@@ -347,7 +346,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	                    close(fdpipein[0]);
 	                    dup2(fdpipeout[1], 1);
 	                    close(fdpipeout[1]);
-
+                                                    std::cout << "Purdue" << std::endl;
                         int ret = fork();
 	                    if (ret == 0) {
 		                    execvp("/proc/self/exe", NULL);
