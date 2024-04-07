@@ -324,55 +324,52 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	    int tmpout = dup(1);
         for (int i = 0; i < args.size(); i++) {
             std::string &arg = args[i];
-            for (size_t j = 0; j < arg.length(); j++) {
-                if (arg[j] == '$' && j + 1 < arg.length()) {
-                                    std::cout << j << std::endl;
-                    if (arg[j + 1] == '(') {
-                        std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
-                        int fdpipein[2];
-	                    int fdpipeout[2];
-	                    pipe(fdpipein);
-	                    pipe(fdpipeout);
+            if (arg[0] == '$' ) {
+                std::cout << j << std::endl;
+                if (arg[1] == '(') {
+                    std::string exp = arg.substr(2, arg.find(')', 0) - 2);
+                    int fdpipein[2];
+	                int fdpipeout[2];
+	                pipe(fdpipein);
+	                pipe(fdpipeout);
 
-                        write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
-	                    write(fdpipein[1], "\n", 1);
-	                    write(fdpipein[1], "exit", 4);
-	                    write(fdpipein[1], "\n", 1);
+                    write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
+	                write(fdpipein[1], "\n", 1);
+	                write(fdpipein[1], "exit", 4);
+	                write(fdpipein[1], "\n", 1);
 
-	                    close(fdpipein[1]);
+	                close(fdpipein[1]);
 
-	                    dup2(fdpipein[0], 0);
-	                    close(fdpipein[0]);
-	                    dup2(fdpipeout[1], 1);
-	                    close(fdpipeout[1]);
+	                dup2(fdpipein[0], 0);
+	                close(fdpipein[0]);
+	                dup2(fdpipeout[1], 1);
+	                close(fdpipeout[1]);
 
-                        int ret = fork();
-	                    if (ret == 0) {
-		                    execvp("/proc/self/exe", NULL);
-		                    _exit(1);
-	                    } else if (ret < 0) {
-		                    perror("fork");
-		                    exit(1);
+                    int ret = fork();
+	                if (ret == 0) {
+		                execvp("/proc/self/exe", NULL);
+		                _exit(1);
+	                } else if (ret < 0) {
+		                perror("fork");
+		                exit(1);
 	                    }
-                        printf("HI");
-	                    dup2(tmpin, 0);
-	                    dup2(tmpout, 1);
-	                    close(tmpin);
-	                    close(tmpout);
+                    printf("HI");
+	                dup2(tmpin, 0);
+	                dup2(tmpout, 1);
+	                close(tmpin);
+	                close(tmpout);
 
-	                    char ch;
-	                    char * buffer = (char *) malloc (4096);
-	                    int k = 0;
+	                char ch;
+	                char * buffer = (char *) malloc (4096);
+	                int k = 0;
 	
-	                    while (read(fdpipeout[0], &ch, 1)) {
-		                    if (ch == '\n') buffer[k++] = ' ';
+	                while (read(fdpipeout[0], &ch, 1)) {
+		                if (ch == '\n') buffer[k++] = ' ';
 		                    else buffer[k++] = ch;
 	                    }
-	                    buffer[k] = '\0';
-                        close(fdpipeout[0]);
-                        args[i] = buffer;
-                        j += exp.length() + 2;;
-                    }
+	                buffer[k] = '\0';
+                    close(fdpipeout[0]);
+                    args[i] = buffer;
                 }
             }
         }
