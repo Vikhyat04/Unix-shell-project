@@ -320,7 +320,7 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
 }
 
 std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
-            printf("Purdue");
+        std::cout << "Purdue" << std::endl;
 	    int tmpin = dup(0);
 	    int tmpout = dup(1);
         for (int i = 0; i < args.size(); i++) {
