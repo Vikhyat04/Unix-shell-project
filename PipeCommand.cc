@@ -336,7 +336,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	                    pipe(fdpipein);
 	                    pipe(fdpipeout);
 
-                        write(fdpipein[1], exp, strlen(exp));
+                        write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
 	                    write(fdpipein[1], "\n", 1);
 	                    write(fdpipein[1], "exit", 4);
 	                    write(fdpipein[1], "\n", 1);
@@ -364,14 +364,14 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 
 	                    char ch;
 	                    char * buffer = (char *) malloc (4096);
-	                    int i = 0;
+	                    int k = 0;
 	
 	                    while (read(fdpipeout[0], &ch, 1)) {
-		                    if (ch == '\n') buffer[i++] = ' ';
-		                    else buffer[i++] = ch;
+		                    if (ch == '\n') buffer[k++] = ' ';
+		                    else buffer[k++] = ch;
 	                    }
-	                    buffer[i] = '\0';
-                        args[j] = buffer;
+	                    buffer[k] = '\0';
+                        args[i] = buffer;
                         j = arg.length();
                     }
                 }

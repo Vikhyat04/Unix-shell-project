@@ -28,7 +28,7 @@ public:
   // Expands environment vars and wildcards of a SimpleCommand and
   // returns the arguments to pass to execvp.
   std::vector<std::string> expandEnvVarsAndWildcards(int simpleCommandNumber);
-  std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args)
+  std::vector<std::string> subshells(std::vector<std::string> args)
 
 };
 
