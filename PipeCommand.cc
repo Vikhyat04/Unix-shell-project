@@ -160,7 +160,7 @@ void PipeCommand::execute() {
         SimpleCommand * s = _simpleCommands[i];
 
         std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
-        args3 = subshells(args3);
+        //args3 = subshells(args3);
 
         //
         if(strcmp(args3[0].c_str(),"setenv") == 0){
@@ -356,7 +356,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 		                    perror("fork");
 		                    exit(1);
 	                    }
-
+                        printf("HI");
 	                    dup2(tmpin, 0);
 	                    dup2(tmpout, 1);
 	                    close(tmpin);
