@@ -328,10 +328,10 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
             for (int j = 0; j < arg.length(); j++) {
                 if (arg[j] == '$' && j + 1 != arg.length()) {
                     if (arg[j + 1] == '(') {
+                                                                            std::cout << "Purdue" << std::endl;
                         std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
                         int fdpipein[2];
 	                    int fdpipeout[2];
-                                                    std::cout << "Purdue" << std::endl;
 	                    pipe(fdpipein);
 	                    pipe(fdpipeout);
 
