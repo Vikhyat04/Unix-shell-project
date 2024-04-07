@@ -324,7 +324,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	    int tmpout = dup(1);
         for (int i = 0; i < args.size(); i++) {
             std::string &arg = args[i];
-            stderr("Purdue");
+            printf("Purdue");
             for (int j = 0; j < arg.length(); j++) {
                 if (arg[j] == '$' && j + 1 != arg.length()) {
                     if (arg[j + 1] == '(') {
