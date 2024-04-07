@@ -334,7 +334,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 
 	                    pipe(fdpipein);
 	                    pipe(fdpipeout);
-
+                                                    std::cout << "Purdue" << std::endl;
                         write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
 	                    write(fdpipein[1], "\n", 1);
 	                    write(fdpipein[1], "exit", 4);
@@ -346,7 +346,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	                    close(fdpipein[0]);
 	                    dup2(fdpipeout[1], 1);
 	                    close(fdpipeout[1]);
-                                                    std::cout << "Purdue" << std::endl;
+
                         int ret = fork();
 	                    if (ret == 0) {
 		                    execvp("/proc/self/exe", NULL);
