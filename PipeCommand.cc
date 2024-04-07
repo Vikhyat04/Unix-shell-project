@@ -160,6 +160,7 @@ void PipeCommand::execute() {
         SimpleCommand * s = _simpleCommands[i];
 
         std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
+        args3 = subshells(args3);
 
         //
         if(strcmp(args3[0].c_str(),"setenv") == 0){
@@ -317,6 +318,70 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
     setenv("_", args[args.size() - 1].c_str(), 1);
     return args;
 }
+
+std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
+	    int tmpin = dup(0);
+	    int tmpout = dup(1);
+        for (int i = 0; i < args.size(); i++) {
+            std::string &arg = args[i];
+            std::string updatedArg = "";
+            for (int j = 0; j < arg.length(); j++) {
+                if (arg[j] == '$' && j + 1 != arg.length()) {
+                    if (arg[j + 1] == '(') {
+                        std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
+                        
+                        int fdpipein[2];
+	                    int fdpipeout[2];
+
+	                    pipe(fdpipein);
+	                    pipe(fdpipeout);
+
+                        write(fdpipein[1], exp, strlen(exp));
+	                    write(fdpipein[1], "\n", 1);
+	                    write(fdpipein[1], "exit", 4);
+	                    write(fdpipein[1], "\n", 1);
+
+	                    close(fdpipein[1]);
+
+	                    dup2(fdpipein[0], 0);
+	                    close(fdpipein[0]);
+	                    dup2(fdpipeout[1], 1);
+	                    close(fdpipeout[1]);
+
+                        int ret = fork();
+	                    if (ret == 0) {
+		                    execvp("/proc/self/exe", NULL);
+		                    _exit(1);
+	                    } else if (ret < 0) {
+		                    perror("fork");
+		                    exit(1);
+	                    }
+
+	                    dup2(tmpin, 0);
+	                    dup2(tmpout, 1);
+	                    close(tmpin);
+	                    close(tmpout);
+
+	                    char ch;
+	                    char * buffer = (char *) malloc (4096);
+	                    int i = 0;
+	
+	                    while (read(fdpipeout[0], &ch, 1)) {
+		                    if (ch == '\n') buffer[i++] = ' ';
+		                    else buffer[i++] = ch;
+	                    }
+	                    buffer[i] = '\0';
+                        args[j] = buffer;
+                        j = arg.length();
+                    }
+                }
+
+
+            }
+        }
+
+}
+
 
 
 
