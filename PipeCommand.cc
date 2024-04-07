@@ -331,10 +331,10 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                         std::string exp = arg.substr(j + 2, arg.find(')', j) - j - 2);
                         int fdpipein[2];
 	                    int fdpipeout[2];
-
+                                                    std::cout << "Purdue" << std::endl;
 	                    pipe(fdpipein);
 	                    pipe(fdpipeout);
-                                                    std::cout << "Purdue" << std::endl;
+
                         write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
 	                    write(fdpipein[1], "\n", 1);
 	                    write(fdpipein[1], "exit", 4);
