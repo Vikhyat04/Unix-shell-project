@@ -162,6 +162,19 @@ void PipeCommand::execute() {
         SimpleCommand * s = _simpleCommands[i];
 
         std::vector<std::string> args3 = expandEnvVars(i);
+
+        // for (int i = 0; i < args3.size(); i++) {
+        //     std::string &arg = args3[i];
+
+        //     if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
+        //         std::vector<std::string> wild = wildcards(arg, ""); 
+        //         if (!wild.empty()) {
+        //             args3.insert(args3.begin() + i, wild.begin(), wild.end()); 
+        //             i += wild.size();
+        //         }
+        //     }
+        // }
+
         args3 = subshells(args3);
 
         //
@@ -323,8 +336,87 @@ std::vector<std::string> PipeCommand::expandEnvVars(int simpleCommandNumber) {
     return args;
 }
 
-std::vector<std::string> PipeCommand::wildcards(int simpleCommandNumber) {
+std::vector<std::string> PipeCommand::wildcards(std::string arg, std::string basePath) {
 
+    std::vector<std::string> finalPaths;
+
+    // Base case
+    if (arg.empty()) {
+        finalPaths.push_back(basePath);
+        return finalPaths;
+    }
+
+    if (arg[0] == '/') {
+        basePath += '/';
+        return wildcards(arg.substr(1, arg.length()), basePath);
+    }
+
+    size_t slashPosition = arg.find('/');
+
+    if (slashPosition == std::string::npos) {
+        slashPosition = arg.size();
+    }
+
+    std::string prevDir = arg.substr(0, slashPosition);
+
+    if (prevDir.find('?') == std::string::npos && prevDir.find('*') == std::string::npos) {
+        return expandWildcards(arg.substr(slashPosition), basePath + prevDir);
+    } else {
+
+        std::string regexPattern = regex_func(prevDir); 
+
+        regex_t regexCompiled;
+        int res = regcomp(&regexCompiled, regexPattern.c_str(), REG_EXTENDED | REG_NOSUB);
+        if (res != 0) {
+            perror("regcomp");
+            return finalPaths;
+        }
+
+        std::string prevDirPath = basePath + '.';
+        DIR * directory = opendir(prevDirPath.c_str());
+        if (directory == NULL) {
+            if (errno != ENOENT && errno != ENOTDIR) {
+                perror("opendir");
+            }
+            regfree(&regexCompiled);
+            return finalPaths;
+        }
+
+        struct dirent * dirEntry;
+        while ((dirEntry = readdir(directory)) != NULL) {
+            if (dirEntry->d_name[0] == '.' && prevDir[0] != '.') continue;
+
+            regmatch_t match;
+            if (regexec(&regexCompiled, dirEntry->d_name, 1, &match, 0) == 0) {
+                std::vector<std::string> subPaths = expandWildcards(arg.substr(slashPosition), basePath + dirEntry->d_name);
+                finalPaths.insert(finalPaths.end(), subPaths.begin(), subPaths.end());
+            }
+        }
+        regfree(&regexCompiled);
+        closedir(directory);
+        return finalPaths;
+    }
+}
+
+std::string PipeCommand::regex_func(std::string prev_dir) {
+    std::string regex_string = "^";
+    for (auto chr : prev_dir) {
+        switch (chr) {
+            case '*':
+                regex_string += ".*";
+                break;
+            case '?':
+                regex_string += ".";
+                break;
+            case '.':
+                regex_string += "\\.";
+                break;
+            default:
+                regex_string += chr;
+        }
+    }
+    regex_string += '$';
+    return regex_string;
 }
 
 std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
