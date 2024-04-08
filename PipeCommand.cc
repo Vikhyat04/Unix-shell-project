@@ -193,7 +193,7 @@ void PipeCommand::execute() {
 			    perror("setenv");
 		    }
 		    clear();
-            Shell::TheShell->prompt();
+            //Shell::TheShell->prompt();
 		    return;
 	    }
         if(strcmp(args3[0].c_str(),"source") == 0){
