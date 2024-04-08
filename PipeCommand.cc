@@ -208,8 +208,10 @@ void PipeCommand::execute() {
 		    if(error) {
 			    perror("unsetenv");
 		    }
-		    clear();
-		    return;
+		    if(Shell::TheShell->_loop == false) {
+                clear();
+                return;
+            }
 	    }
         if(strcmp(args3[0].c_str(), "cd") == 0){
 		    int index;
@@ -226,8 +228,10 @@ void PipeCommand::execute() {
 			    fprintf(stderr, "cd: can't cd to %s\n", p.c_str());
             }
 
-		    clear();
-		    return;
+		    if(Shell::TheShell->_loop == false) {
+                clear();
+                return;
+            }
 	    }
 
         //
