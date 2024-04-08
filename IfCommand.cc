@@ -14,6 +14,7 @@
 IfCommand::IfCommand() {
     _condition = NULL;
     _listCommands =  NULL;
+    _flag = false;
 }
 
 
