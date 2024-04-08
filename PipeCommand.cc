@@ -326,6 +326,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
             std::string &arg = args[i];
             std::cout << "see" << std::endl;
             if (arg[0] == '$' && arg.size() >= 3 ) {
+                std::cout << "wellshit" << std::endl;
                 if (arg[1] == '(') {
                     std::cout << "see" << std::endl;
                     std::string exp = arg.substr(2, arg.find(')', 0) - 2);
