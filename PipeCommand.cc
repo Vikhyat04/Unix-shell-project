@@ -348,7 +348,10 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 
                     int ret = fork();
 	                if (ret == 0) {
-		                execvp("/proc/self/exe", NULL);
+                        char **aa = (char **) malloc(2 * sizeof(char *));
+                        aa[0] = strdup("/proc/self/exe");
+                        aa[1] = NULL;
+		                execvp(aa[0], aa);
 		                _exit(1);
 	                } else if (ret < 0) {
 		                perror("fork");
