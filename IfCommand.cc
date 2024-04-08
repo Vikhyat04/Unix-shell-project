@@ -10,6 +10,7 @@
 #include "SimpleCommand.hh"
 #include "IfCommand.hh"
 #include "PipeCommand.hh"
+#include "Shell.hh"
 
 IfCommand::IfCommand(bool _isif) {
     _condition = NULL;

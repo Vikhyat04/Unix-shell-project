@@ -539,7 +539,7 @@ static const yytype_uint8 yyrline[] =
        0,    37,    37,    39,    41,    44,    44,    51,    57,    65,
       70,    75,    82,    88,    92,    98,    99,   102,   106,   109,
      110,   113,   119,   124,   128,   129,   130,   133,   138,   145,
-     150,   144,   165,   169,   165,   181,   183,   181
+     150,   144,   165,   168,   165,   180,   182,   180
 };
 #endif
 
@@ -1347,60 +1347,59 @@ yyreduce:
   case 32: /* $@4: %empty  */
 #line 165 "shell.y"
                    {
-		Shell::TheShell->_loop=true; 
 		Shell::TheShell->_level++; 
 	    Shell::TheShell->_ifCommand = new IfCommand(false);
 	}
-#line 1355 "y.tab.cc"
+#line 1354 "y.tab.cc"
     break;
 
   case 33: /* $@5: %empty  */
-#line 169 "shell.y"
+#line 168 "shell.y"
                                     {
 		Shell::TheShell->_ifCommand->insertCondition( 
 		Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
 	}
-#line 1365 "y.tab.cc"
+#line 1364 "y.tab.cc"
     break;
 
   case 34: /* while_command: WHILE LBRACKET $@4 arg_list RBRACKET SEMI DO $@5 command_list DONE  */
-#line 173 "shell.y"
+#line 172 "shell.y"
                             {
 		Shell::TheShell->_level--; 
 	    Shell::TheShell->_ifCommand->insertListCommands( 
 		Shell::TheShell->_listCommands);
 	    Shell::TheShell->_listCommands = new ListCommands();
 	}
-#line 1376 "y.tab.cc"
+#line 1375 "y.tab.cc"
     break;
 
   case 35: /* $@6: %empty  */
-#line 181 "shell.y"
+#line 180 "shell.y"
                          {
 
 	}
-#line 1384 "y.tab.cc"
+#line 1383 "y.tab.cc"
     break;
 
   case 36: /* $@7: %empty  */
-#line 183 "shell.y"
+#line 182 "shell.y"
                   {
 
 	}
-#line 1392 "y.tab.cc"
+#line 1391 "y.tab.cc"
     break;
 
   case 37: /* for_command: FOR WORD IN arg_list $@6 SEMI DO $@7 command_list DONE  */
-#line 185 "shell.y"
+#line 184 "shell.y"
                             {
 
 	}
-#line 1400 "y.tab.cc"
+#line 1399 "y.tab.cc"
     break;
 
 
-#line 1404 "y.tab.cc"
+#line 1403 "y.tab.cc"
 
       default: break;
     }
@@ -1593,7 +1592,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 189 "shell.y"
+#line 188 "shell.y"
 
 void
 yyerror(const char * s)
