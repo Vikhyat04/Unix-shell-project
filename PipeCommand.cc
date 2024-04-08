@@ -362,7 +362,7 @@ std::vector<std::string> PipeCommand::wildcards(std::string arg, std::string bas
     std::string prevDir = arg.substr(0, slashPosition);
 
     if (prevDir.find('?') == std::string::npos && prevDir.find('*') == std::string::npos) {
-        return expandWildcards(arg.substr(slashPosition), basePath + prevDir);
+        return wildcards(arg.substr(slashPosition), basePath + prevDir);
     } else {
 
         std::string regexPattern = regex_func(prevDir); 
@@ -390,7 +390,7 @@ std::vector<std::string> PipeCommand::wildcards(std::string arg, std::string bas
 
             regmatch_t match;
             if (regexec(&regexCompiled, dirEntry->d_name, 1, &match, 0) == 0) {
-                std::vector<std::string> subPaths = expandwildcards(arg.substr(slashPosition), basePath + dirEntry->d_name);
+                std::vector<std::string> subPaths = wildcards(arg.substr(slashPosition), basePath + dirEntry->d_name);
                 finalPaths.insert(finalPaths.end(), subPaths.begin(), subPaths.end());
             }
         }

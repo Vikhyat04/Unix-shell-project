@@ -29,7 +29,7 @@ public:
   // returns the arguments to pass to execvp.
   std::vector<std::string> expandEnvVars(int simpleCommandNumber);
   std::vector<std::string> wildcards(std::string arg, std::string basePath);
-  std::string PipeCommand::regex_func(std::string prev_dir);
+  std::string regex_func(std::string prev_dir);
   std::vector<std::string> subshells(std::vector<std::string> args);
 
 };
