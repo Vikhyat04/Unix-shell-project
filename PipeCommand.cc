@@ -329,7 +329,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
         for (int i = 0; i < args.size(); i++) {
             std::string &arg = args[i];
             int flag=0;
-            std::string exp = NULL;
+            std::string exp;
             std::cout << "see" << std::endl;
 
             if (arg.size() >= 2 && arg[0] == '`' && arg[arg.size()-1] == '`') {
