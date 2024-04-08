@@ -9,6 +9,7 @@
 #include "Command.hh"
 #include "SimpleCommand.hh"
 #include "IfCommand.hh"
+#include "PipeCommand.hh"
 
 IfCommand::IfCommand() {
     _condition = NULL;
