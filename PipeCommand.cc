@@ -327,6 +327,9 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	    int tmpin = dup(0);
 	    int tmpout = dup(1);
         for (int i = 0; i < args.size(); i++) {
+
+            std::cout << args[i] << endl;
+
             std::string &arg = args[i];
             int flag=0;
             std::string exp;
@@ -394,9 +397,9 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                 }
                 flag=0;
             }
-        for(int i=0;i<args.size();i++) {
-            std::cout << args[i] << std::endl;
-        }
+        // for(int i=0;i<args.size();i++) {
+        //     std::cout << args[i] << std::endl;
+        // }
         return args;
 }
 
