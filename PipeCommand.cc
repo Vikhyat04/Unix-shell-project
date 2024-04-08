@@ -365,14 +365,20 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	                char ch;
 	                char * buffer = (char *) malloc (4096);
 	                int k = 0;
-	
+
+                    args.erase(args.begin() + i);
+
 	                while (read(fdpipeout[0], &ch, 1)) {
-		                if (ch == '\n') buffer[k++] = ' ';
+		                if (ch == '\n') {
+                            buffer[k++] = '\0';
+                            args.insert(args.begin() + i, std::string(buffer));
+                            i++;
+                            k = 0;
+                        }
 		                    else buffer[k++] = ch;
 	                    }
-	                buffer[k] = '\0';
                     close(fdpipeout[0]);
-                    args[i] = buffer;
+                    free(buffer);
                 }
             }
         }
