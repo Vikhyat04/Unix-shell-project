@@ -157,6 +157,7 @@ if_command:
 	    Shell::TheShell->_listCommands = new ListCommands();
 	}
     ;
+
 while_command:
     WHILE LBRACKET {
 		Shell::TheShell->_level++; 
