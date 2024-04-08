@@ -21,6 +21,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <cstring>
+#include <dirent.h>
+#include <regex.h>
 
 #include <cstdio>
 #include <cstdlib>
@@ -388,7 +390,7 @@ std::vector<std::string> PipeCommand::wildcards(std::string arg, std::string bas
 
             regmatch_t match;
             if (regexec(&regexCompiled, dirEntry->d_name, 1, &match, 0) == 0) {
-                std::vector<std::string> subPaths = expandWildcards(arg.substr(slashPosition), basePath + dirEntry->d_name);
+                std::vector<std::string> subPaths = expandwildcards(arg.substr(slashPosition), basePath + dirEntry->d_name);
                 finalPaths.insert(finalPaths.end(), subPaths.begin(), subPaths.end());
             }
         }
