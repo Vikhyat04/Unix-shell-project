@@ -57,7 +57,7 @@ IfCommand::print() {
 }
   
 void 
-IfCommand::executeIf() {
+IfCommand::execute() {
     // Run command if test is 0
     if (runTest(this->_condition) == 0) {
 	_listCommands->execute();
