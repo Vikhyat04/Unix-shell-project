@@ -194,9 +194,8 @@ void PipeCommand::execute() {
 		    }
             if(Shell::TheShell->_loop == false) {
                 clear();
-                return;
             }
-		    
+		    return;
 	    }
         if(strcmp(args3[0].c_str(),"source") == 0){
             FILE* yyin = fopen(args3[1].c_str(), "r");
