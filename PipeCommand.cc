@@ -328,9 +328,21 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	    int tmpout = dup(1);
         for (int i = 0; i < args.size(); i++) {
             std::string &arg = args[i];
+            int flag=0;
+            std::string exp = NULL;
+
+            if(arg[0] == '`' && arg[arg.size()-1] == "`" arg.size() >= 3) {
+                exp = arg.substr(2, arg.find(')', 0) - 2);
+                flag=1;
+            }
+
             if (arg[0] == '$' && arg.size() >= 3 ) {
                 if (arg[1] == '(') {
-                    std::string exp = arg.substr(2, arg.find(')', 0) - 2);
+                    exp = arg.substr(2, arg.find(')', 0) - 2);
+                    flag=1;
+                }
+            }
+            if(flag) {
                     int fdpipein[2];
 	                int fdpipeout[2];
 	                pipe(fdpipein);
@@ -383,7 +395,6 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                     free(buffer);
                 }
             }
-        }
         return args;
 
 }
