@@ -168,6 +168,12 @@ void push_buffer (FILE *yyin) {
   return WORD;
 }
 
+`[^\n`]*` {
+  yylval.cpp_string = new std::string(yytext);
+  return WORD;
+
+}
+
 
 
 %%
