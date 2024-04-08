@@ -161,7 +161,7 @@ void PipeCommand::execute() {
         //
         SimpleCommand * s = _simpleCommands[i];
 
-        std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
+        std::vector<std::string> args3 = expandEnvVars(i);
         args3 = subshells(args3);
 
         //
@@ -284,7 +284,7 @@ void PipeCommand::execute() {
 
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
-std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleCommandNumber) {
+std::vector<std::string> PipeCommand::expandEnvVars(int simpleCommandNumber) {
     int ind = simpleCommandNumber; 
 
     SimpleCommand* s = _simpleCommands[ind];
@@ -322,6 +322,8 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
     setenv("_", args[args.size() - 1].c_str(), 1);
     return args;
 }
+
+std::vector<std::string> PipeCommand::
 
 std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
         for (int i = 0; i < args.size(); i++) {
