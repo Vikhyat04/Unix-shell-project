@@ -179,12 +179,6 @@ void PipeCommand::execute() {
 
         std::cout << "ma gawd ";
 
-        for(int i=0;i<args3.size();i++) {
-            std::cout << args3[i] << '\n'
-        }
-
-        args3 = subshells(args3);
-
         //
         if(strcmp(args3[0].c_str(),"setenv") == 0){
 		    int error = setenv(args3[1].c_str(), args3[2].c_str(), 1);
