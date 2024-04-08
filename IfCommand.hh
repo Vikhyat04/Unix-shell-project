@@ -19,7 +19,7 @@ public:
 
   void clear();
   void print();
-  void executeIf();
+  void execute();
 
 };
 
