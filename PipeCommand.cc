@@ -209,8 +209,8 @@ void PipeCommand::execute() {
 		    }
 		    if(Shell::TheShell->_loop == false) {
                 clear();
-                return;
             }
+            return;
 	    }
         if(strcmp(args3[0].c_str(), "cd") == 0){
 		    int index;
@@ -229,8 +229,8 @@ void PipeCommand::execute() {
 
 		    if(Shell::TheShell->_loop == false) {
                 clear();
-                return;
             }
+            return;
 	    }
 
         //
