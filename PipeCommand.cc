@@ -165,17 +165,17 @@ void PipeCommand::execute() {
 
         std::vector<std::string> args3 = expandEnvVars(i);
 
-        // for (int i = 0; i < args3.size(); i++) {
-        //     std::string &arg = args3[i];
+        for (int i = 0; i < args3.size(); i++) {
+            std::string &arg = args3[i];
 
-        //     if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
-        //         std::vector<std::string> wild = wildcards(arg, ""); 
-        //         if (!wild.empty()) {
-        //             args3.insert(args3.begin() + i, wild.begin(), wild.end()); 
-        //             i += wild.size();
-        //         }
-        //     }
-        // }
+            if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
+                std::vector<std::string> wild = wildcards(arg, ""); 
+                if (!wild.empty()) {
+                    args3.insert(args3.begin() + i, wild.begin(), wild.end()); 
+                    i += wild.size();
+                }
+            }
+        }
 
         args3 = subshells(args3);
 
