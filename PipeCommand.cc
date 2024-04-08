@@ -180,7 +180,6 @@ void PipeCommand::execute() {
             }
         }
 
-        std::cout << "ma gawd ";
 
         //
         if(strcmp(args3[0].c_str(),"setenv") == 0){
