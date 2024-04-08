@@ -362,10 +362,9 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	                char ch;
 	                char * buffer = (char *) malloc (4096);
 	                int k = 0;
-
-                    std::cout << "Hi\n";
 	
 	                while (read(fdpipeout[0], &ch, 1)) {
+                        std::cout << ch;
 		                if (ch == '\n') buffer[k++] = ' ';
 		                    else buffer[k++] = ch;
 	                    }
