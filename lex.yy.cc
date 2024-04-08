@@ -1301,15 +1301,14 @@ YY_RULE_SETUP
 {
   yylval.cpp_string = new std::string(yytext);
   return WORD;
-
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 179 "shell.l"
+#line 178 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1313 "lex.yy.cc"
+#line 1312 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2324,5 +2323,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 179 "shell.l"
+#line 178 "shell.l"
 

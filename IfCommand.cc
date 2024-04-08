@@ -67,9 +67,11 @@ IfCommand::execute() {
 	    _listCommands->execute();
         }
     } else {
+        Shell::TheShell->_loop=true; 
         while (runTest(this->_condition) == 0) {
             _listCommands->execute();
         }
+        Shell::TheShell->_loop=false; 
     }
 
 }
