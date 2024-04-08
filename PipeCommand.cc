@@ -291,7 +291,7 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
 
     for(int i = 0; i < s->_arguments.size(); i++) {
         args[i] = *s->_arguments[i];
-        // std::cout << args[i] << "\n";
+        std::cout << args[i] << "\n";
     }
 
     for (int i = 0; i < args.size(); i++) {
@@ -308,6 +308,8 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
                         updatedArg += envValue;
                         j += var.length() + 2;
                     }
+                } else {
+                    updatedArg += arg[j];
                 }
             } else {
                 updatedArg += arg[j];
