@@ -291,7 +291,7 @@ std::vector<std::string> PipeCommand::expandEnvVarsAndWildcards(int simpleComman
 
     for(int i = 0; i < s->_arguments.size(); i++) {
         args[i] = *s->_arguments[i];
-        std::cout << args[i] << "\n";
+        // std::cout << args[i] << "\n";
     }
 
     for (int i = 0; i < args.size(); i++) {
@@ -327,7 +327,6 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
             std::string &arg = args[i];
             if (arg[0] == '$' && arg.size() >= 3 ) {
                 if (arg[1] == '(') {
-                    std::cout << "see" << std::endl;
                     std::string exp = arg.substr(2, arg.find(')', 0) - 2);
                     int fdpipein[2];
 	                int fdpipeout[2];
