@@ -27,6 +27,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <algorithm>
 
 #include "PipeCommand.hh"
 #include "Shell.hh"
@@ -171,6 +172,7 @@ void PipeCommand::execute() {
             if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
                 std::vector<std::string> wild = wildcards(arg, ""); 
                 if (!wild.empty()) {
+                    std::sort(wild.begin(), wild.end());
                     args3.erase(args3.begin() + i);
                     args3.insert(args3.begin() + i, wild.begin(), wild.end()); 
                     i += wild.size();
