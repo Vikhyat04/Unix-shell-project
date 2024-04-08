@@ -166,6 +166,8 @@ void PipeCommand::execute() {
 
         std::vector<std::string> args3 = expandEnvVars(i);
 
+        args3 = subshells(args3);
+
         for (int i = 0; i < args3.size(); i++) {
             std::string &arg = args3[i];
 
