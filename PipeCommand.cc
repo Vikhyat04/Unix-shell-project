@@ -323,8 +323,6 @@ std::vector<std::string> PipeCommand::expandEnvVars(int simpleCommandNumber) {
     return args;
 }
 
-std::vector<std::string> PipeCommand::
-
 std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
         for (int i = 0; i < args.size(); i++) {
             std::string &arg = args[i];
