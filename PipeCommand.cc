@@ -331,68 +331,65 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
             int flag=0;
             std::string exp = NULL;
 
-            if(arg[0] == '`' && arg[arg.size()-1] == '`' && arg.size() >= 2) {
-                exp = arg.substr(1, arg.find('`', 1) - 1);
-                flag=1;
+            if (arg.size() >= 2 && arg[0] == '`' && arg[arg.size()-1] == '`') {
+                exp = arg.substr(1, arg.size()-2);
+                flag = 1;
+            } else if (arg.size() >= 3 && arg[0] == '$' && arg[1] == '(' && arg[arg.size()-1] == ')') {
+                exp = arg.substr(2, arg.size()-3);
+                flag = 1;
             }
-
-            if (arg[0] == '$' && arg.size() >= 3 ) {
-                if (arg[1] == '(') {
-                    exp = arg.substr(2, arg.find(')', 0) - 2);
-                    flag=1;
-                }
-            }
+            
             if(flag) {
-                    int fdpipein[2];
-	                int fdpipeout[2];
-	                pipe(fdpipein);
-	                pipe(fdpipeout);
+                int fdpipein[2];
+                int fdpipeout[2];
+                pipe(fdpipein);
+                pipe(fdpipeout);
 
-                    write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
-	                write(fdpipein[1], "\n", 1);
-	                write(fdpipein[1], "exit", 4);
-	                write(fdpipein[1], "\n", 1);
+                write(fdpipein[1], exp.c_str(), strlen(exp.c_str()));
+                write(fdpipein[1], "\n", 1);
+                write(fdpipein[1], "exit", 4);
+                write(fdpipein[1], "\n", 1);
 
-	                close(fdpipein[1]);
+                close(fdpipein[1]);
 
-	                dup2(fdpipein[0], 0);
-	                close(fdpipein[0]);
-	                dup2(fdpipeout[1], 1);
-	                close(fdpipeout[1]);
+                dup2(fdpipein[0], 0);
+                close(fdpipein[0]);
+                dup2(fdpipeout[1], 1);
+                close(fdpipeout[1]);
 
-                    int ret = fork();
-	                if (ret == 0) {
-                        char **aa = (char **) malloc(2 * sizeof(char *));
-                        aa[0] = strdup("/proc/self/exe");
-                        aa[1] = NULL;
-		                execvp(aa[0], aa);
-		                _exit(1);
-	                } else if (ret < 0) {
-		                perror("fork");
-		                exit(1);
-	                    }
-	                dup2(tmpin, 0);
-	                dup2(tmpout, 1);
-	                close(tmpin);
-	                close(tmpout);
+                int ret = fork();
+                if (ret == 0) {
+                    char **aa = (char **) malloc(2 * sizeof(char *));
+                    aa[0] = strdup("/proc/self/exe");
+                    aa[1] = NULL;
+                    execvp(aa[0], aa);
+                    _exit(1);
+                } else if (ret < 0) {
+                    perror("fork");
+                    exit(1);
+                    }
+                dup2(tmpin, 0);
+                dup2(tmpout, 1);
+                close(tmpin);
+                close(tmpout);
 
-	                char ch;
-	                char * buffer = (char *) malloc (4096);
-	                int k = 0;
+                char ch;
+                char * buffer = (char *) malloc (4096);
+                int k = 0;
 
-                    args.erase(args.begin() + i);
+                args.erase(args.begin() + i);
 
-	                while (read(fdpipeout[0], &ch, 1)) {
-		                if (ch == '\n') {
-                            buffer[k++] = '\0';
-                            args.insert(args.begin() + i, std::string(buffer));
-                            i++;
-                            k = 0;
-                        }
-		                    else buffer[k++] = ch;
-	                    }
-                    close(fdpipeout[0]);
-                    free(buffer);
+                while (read(fdpipeout[0], &ch, 1)) {
+                    if (ch == '\n') {
+                        buffer[k++] = '\0';
+                        args.insert(args.begin() + i, std::string(buffer));
+                        i++;
+                        k = 0;
+                    }
+                        else buffer[k++] = ch;
+                    }
+                close(fdpipeout[0]);
+                free(buffer);
                 }
                 flag=0;
             }
