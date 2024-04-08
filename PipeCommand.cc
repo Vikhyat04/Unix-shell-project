@@ -367,7 +367,6 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	                int k = 0;
 	
 	                while (read(fdpipeout[0], &ch, 1)) {
-                        std::cout << ch;
 		                if (ch == '\n') buffer[k++] = ' ';
 		                    else buffer[k++] = ch;
 	                    }
