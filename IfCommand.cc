@@ -20,7 +20,7 @@ IfCommand::IfCommand() {
 // Run condition with command "test" and return the exit value.
 int
 IfCommand::runTest(SimpleCommand * condition) {
-    //condition->print();
+    condition->print();
     PipeCommand p = PipeCommand();
     condition->_arguments.insert(condition->_arguments.begin(), new std::string("test"));
     p.insertSimpleCommand(condition);
