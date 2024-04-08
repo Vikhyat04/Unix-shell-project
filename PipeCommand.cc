@@ -331,8 +331,8 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
             int flag=0;
             std::string exp = NULL;
 
-            if(arg[0] == '`' && arg[arg.size()-1] == "`" arg.size() >= 3) {
-                exp = arg.substr(2, arg.find(')', 0) - 2);
+            if(arg[0] == '`' && arg[arg.size()-1] == "`" && arg.size() >= 2) {
+                exp = arg.substr(1, arg.find('`', 1) - 2);
                 flag=1;
             }
 
