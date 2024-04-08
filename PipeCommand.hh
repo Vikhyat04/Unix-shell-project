@@ -28,7 +28,7 @@ public:
   // Expands environment vars and wildcards of a SimpleCommand and
   // returns the arguments to pass to execvp.
   std::vector<std::string> expandEnvVars(int simpleCommandNumber);
-  std::vector<std::string> getMatchingFiles(const std::string& wildcard)
+  std::vector<std::string> wildcards(int simpleCommandNumber);
   std::vector<std::string> subshells(std::vector<std::string> args);
 
 };
