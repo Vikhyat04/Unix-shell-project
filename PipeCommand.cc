@@ -380,7 +380,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                 args.erase(args.begin() + i);
 
                 while (read(fdpipeout[0], &ch, 1)) {
-                    if (ch == '\n') {
+                    if (ch == '\n'  || ch == ' ' || ch == '\t'){
                         buffer[k++] = '\0';
                         args.insert(args.begin() + i, std::string(buffer));
                         i++;
