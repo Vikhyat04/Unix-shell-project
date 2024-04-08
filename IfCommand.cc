@@ -63,8 +63,11 @@ IfCommand::execute() {
     if(_isif) {
         if (runTest(this->_condition) == 0) {
 	    _listCommands->execute();
-    }
-
+        }
+    } else {
+        while(runTest(this->_condition) == 0) {
+            _listCommands->execute();
+        }
     }
 
 }
