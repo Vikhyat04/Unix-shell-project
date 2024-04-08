@@ -162,7 +162,7 @@ void PipeCommand::execute() {
         SimpleCommand * s = _simpleCommands[i];
 
         std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
-        args3 = subshells(args3);
+        // args3 = subshells(args3);
 
         //
         if(strcmp(args3[0].c_str(),"setenv") == 0){
