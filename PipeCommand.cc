@@ -162,7 +162,7 @@ void PipeCommand::execute() {
         SimpleCommand * s = _simpleCommands[i];
 
         std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
-        // args3 = subshells(args3);
+        args3 = subshells(args3);
 
         for (auto x : args3) {
             std::cout << x << std::endl;
