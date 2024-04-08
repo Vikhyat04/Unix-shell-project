@@ -338,8 +338,8 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                 exp = arg.substr(2, arg.size()-3);
                 flag = 1;
             }
+            std::cout << "see" << std::endl;
             if(flag) {
-                std::cout << "see" << std::endl;
                 int fdpipein[2];
                 int fdpipeout[2];
                 pipe(fdpipein);
@@ -391,7 +391,7 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                 close(fdpipeout[0]);
                 free(buffer);
                 } else {
-                    
+
                 }
                 flag=0;
             }
