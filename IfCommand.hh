@@ -13,7 +13,7 @@ public:
   ListCommands * _listCommands; 
   bool _isif;
 
-  IfCommand();
+  IfCommand(bool _isif);
   void insertCondition( SimpleCommand * condition );
   void insertListCommands( ListCommands * listCommands);
   static int runTest(SimpleCommand * condition);

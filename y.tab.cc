@@ -1315,7 +1315,7 @@ yyreduce:
 #line 142 "shell.y"
         { 
 	    Shell::TheShell->_level++; 
-	    Shell::TheShell->_ifCommand = new IfCommand();
+	    Shell::TheShell->_ifCommand = new IfCommand(true);
 	}
 #line 1321 "y.tab.cc"
     break;
@@ -1345,7 +1345,7 @@ yyreduce:
 #line 161 "shell.y"
                    {
 		Shell::TheShell->_level++; 
-	    Shell::TheShell->_ifCommand = new IfCommand();
+	    Shell::TheShell->_ifCommand = new IfCommand(false);
 	}
 #line 1351 "y.tab.cc"
     break;
