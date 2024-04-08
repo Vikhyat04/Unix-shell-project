@@ -192,8 +192,11 @@ void PipeCommand::execute() {
 		    if(error) {
 			    perror("setenv");
 		    }
-		    clear();
-		    return;
+            if(Shell::TheShell->_loop == false) {
+                clear();
+                return;
+            }
+		    
 	    }
         if(strcmp(args3[0].c_str(),"source") == 0){
             FILE* yyin = fopen(args3[1].c_str(), "r");
