@@ -328,8 +328,6 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	    int tmpout = dup(1);
         for (int i = 0; i < args.size(); i++) {
 
-            std::cout << args[i] << std::endl;
-
             std::string &arg = args[i];
             int flag=0;
             std::string exp;
