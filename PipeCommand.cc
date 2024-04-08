@@ -362,6 +362,8 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	                char ch;
 	                char * buffer = (char *) malloc (4096);
 	                int k = 0;
+
+                    std::cout << "Hi\n";
 	
 	                while (read(fdpipeout[0], &ch, 1)) {
 		                if (ch == '\n') buffer[k++] = ' ';
@@ -370,7 +372,6 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
 	                buffer[k] = '\0';
                     close(fdpipeout[0]);
                     args[i] = buffer;
-                    std :: cout << args[i] << "\n";
                 }
             }
         }
