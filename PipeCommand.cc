@@ -164,6 +164,10 @@ void PipeCommand::execute() {
         std::vector<std::string> args3 = expandEnvVarsAndWildcards(i);
         // args3 = subshells(args3);
 
+        for (auto x : args3) {
+            std::cout << x << std::endl;
+        }
+
         //
         if(strcmp(args3[0].c_str(),"setenv") == 0){
 		    int error = setenv(args3[1].c_str(), args3[2].c_str(), 1);
