@@ -386,7 +386,9 @@ std::vector<std::string> PipeCommand::wildcards(std::string arg, std::string bas
 
         struct dirent * dirEntry;
         while ((dirEntry = readdir(directory)) != NULL) {
-            if (dirEntry->d_name[0] == '.' && prevDir[0] != '.') continue;
+            if (dirEntry->d_name[0] == '.' && prevDir[0] != '.') {
+                continue;
+            }
 
             regmatch_t match;
             if (regexec(&regexCompiled, dirEntry->d_name, 1, &match, 0) == 0) {
