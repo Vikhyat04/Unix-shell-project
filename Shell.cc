@@ -67,7 +67,7 @@ void Shell::execute() {
     //this->print();
     this->_listCommands->execute();
     this->_listCommands->clear();
-    this->prompt();
+    //this->prompt();
   }
 }
 
