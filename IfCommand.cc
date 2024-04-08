@@ -24,7 +24,7 @@ IfCommand::runTest(SimpleCommand * condition) {
     PipeCommand p = PipeCommand();
     condition->_arguments.insert(condition->_arguments.begin(), new std::string("test"));
     p.insertSimpleCommand(condition);
-    p.executeIf();
+    p.execute();
     char *index = (getenv("?"));
     if(index==NULL) {
 
