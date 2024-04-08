@@ -163,6 +163,7 @@ if_command:
 
 while_command:
     WHILE LBRACKET {
+		Shell::TheShell->_loop=true; 
 		Shell::TheShell->_level++; 
 	    Shell::TheShell->_ifCommand = new IfCommand(false);
 	} arg_list RBRACKET SEMI DO {

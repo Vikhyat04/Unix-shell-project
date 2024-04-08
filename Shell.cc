@@ -14,6 +14,7 @@ Shell * Shell::TheShell;
 
 Shell::Shell() {
     this->_level = 0;
+    this->_loop = false;
     this->_enablePrompt = true;
     this->_listCommands = new ListCommands(); 
     this->_simpleCommand = new SimpleCommand();

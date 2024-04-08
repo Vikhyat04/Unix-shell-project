@@ -10,6 +10,7 @@ class Shell {
 public:
   int _level; // Only outer level executes.
   bool _enablePrompt;
+  bool _loop;
   ListCommands * _listCommands; 
   SimpleCommand *_simpleCommand;
   PipeCommand * _pipeCommand;

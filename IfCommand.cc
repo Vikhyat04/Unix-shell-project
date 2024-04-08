@@ -65,7 +65,7 @@ IfCommand::execute() {
 	    _listCommands->execute();
         }
     } else {
-        if (runTest(this->_condition) == 0) {
+        while (runTest(this->_condition) == 0) {
             _listCommands->execute();
         }
     }

@@ -193,13 +193,11 @@ void PipeCommand::execute() {
 			    perror("setenv");
 		    }
 		    clear();
-            //Shell::TheShell->prompt();
 		    return;
 	    }
         if(strcmp(args3[0].c_str(),"source") == 0){
             FILE* yyin = fopen(args3[1].c_str(), "r");
             push_buffer(yyin);
-            //Shell::TheShell->prompt();
 		    return;
 	    }
         if(strcmp(args3[0].c_str(),"unsetenv") == 0){
@@ -208,7 +206,6 @@ void PipeCommand::execute() {
 			    perror("unsetenv");
 		    }
 		    clear();
-            //Shell::TheShell->prompt();
 		    return;
 	    }
         if(strcmp(args3[0].c_str(), "cd") == 0){
@@ -227,7 +224,6 @@ void PipeCommand::execute() {
             }
 
 		    clear();
-		    //Shell::TheShell->prompt();
 		    return;
 	    }
 
@@ -298,7 +294,9 @@ void PipeCommand::execute() {
 
 
     // Clear to prepare for next command
-    clear();
+    if(Shell::TheShell->_loop == false) {
+            clear();
+    }
 
     // Print new prompt
     //Shell::TheShell->prompt();
