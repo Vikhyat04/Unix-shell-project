@@ -338,8 +338,9 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                 exp = arg.substr(2, arg.size()-3);
                 flag = 1;
             }
-            
+
             if(flag) {
+                std::cout << "see" << std::endl;
                 int fdpipein[2];
                 int fdpipeout[2];
                 pipe(fdpipein);
