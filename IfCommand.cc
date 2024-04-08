@@ -14,7 +14,7 @@
 IfCommand::IfCommand(bool _isif) {
     _condition = NULL;
     _listCommands =  NULL;
-    this._isif = _isif;
+    this->_isif = _isif;
 }
 
 
