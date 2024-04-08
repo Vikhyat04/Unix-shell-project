@@ -33,6 +33,15 @@ void push_buffer (FILE *yyin) {
 
 %%
 
+<<EOF>> {
+			yypop_buffer_state();
+
+            if ( !YY_CURRENT_BUFFER )
+                {
+                yyterminate();
+                }
+            }
+
 "#".*\n {
   /* Discard comments starting with # */
 }
@@ -121,6 +130,11 @@ void push_buffer (FILE *yyin) {
   return TWOGREAT;
 }
 
+\$\(([^\)]*)\) {
+  yylval.cpp_string = new std::string(yytext);
+  return WORD;
+}
+
 [^ \t\n|><&]*\\[^ \t\n]* {
 
   int i=0;
@@ -153,15 +167,6 @@ void push_buffer (FILE *yyin) {
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
-
-<<EOF>> {
-			yypop_buffer_state();
-
-            if ( !YY_CURRENT_BUFFER )
-                {
-                yyterminate();
-                }
-            }
 
 
 
