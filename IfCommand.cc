@@ -60,6 +60,7 @@ IfCommand::print() {
 void 
 IfCommand::execute() {
     // Run command if test is 0
+    _condition->_arguments.insert(_condition->_arguments.begin(), new std::string("test"));
     if(_isif) {
         if (runTest(this->_condition) == 0) {
 	    _listCommands->execute();
