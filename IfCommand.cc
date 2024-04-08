@@ -11,10 +11,10 @@
 #include "IfCommand.hh"
 #include "PipeCommand.hh"
 
-IfCommand::IfCommand() {
+IfCommand::IfCommand(bool _isif) {
     _condition = NULL;
     _listCommands =  NULL;
-    _flag = false;
+    this._isif = _isif;
 }
 
 
@@ -60,8 +60,12 @@ IfCommand::print() {
 void 
 IfCommand::execute() {
     // Run command if test is 0
-    if (runTest(this->_condition) == 0) {
-	_listCommands->execute();
+    if(_isif) {
+        if (runTest(this->_condition) == 0) {
+	    _listCommands->execute();
     }
+
+    }
+
 }
 

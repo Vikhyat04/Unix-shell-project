@@ -141,7 +141,7 @@ if_command:
     IF LBRACKET 
 	{ 
 	    Shell::TheShell->_level++; 
-	    Shell::TheShell->_ifCommand = new IfCommand();
+	    Shell::TheShell->_ifCommand = new IfCommand(true);
 	} 
     arg_list RBRACKET SEMI THEN 
 	{
@@ -160,7 +160,7 @@ if_command:
 while_command:
     WHILE LBRACKET {
 		Shell::TheShell->_level++; 
-	    Shell::TheShell->_ifCommand = new IfCommand();
+	    Shell::TheShell->_ifCommand = new IfCommand(false);
 	} arg_list RBRACKET SEMI DO {
 		Shell::TheShell->_ifCommand->insertCondition( 
 		Shell::TheShell->_simpleCommand);

@@ -11,7 +11,7 @@ class IfCommand : public Command {
 public:
   SimpleCommand * _condition;
   ListCommands * _listCommands; 
-  bool _flag;
+  bool _isif;
 
   IfCommand();
   void insertCondition( SimpleCommand * condition );
