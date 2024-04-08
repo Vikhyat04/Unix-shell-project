@@ -394,6 +394,9 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                 }
                 flag=0;
             }
+        for(int i=0;i<args.size();i++) {
+            std::cout << args[i] << std::endl;
+        }
         return args;
 }
 
