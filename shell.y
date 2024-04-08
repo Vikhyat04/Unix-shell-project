@@ -158,10 +158,28 @@ if_command:
 	}
     ;
 while_command:
-    WHILE LBRACKET arg_list RBRACKET SEMI DO command_list DONE 
+    WHILE LBRACKET {
+		Shell::TheShell->_level++; 
+	    Shell::TheShell->_ifCommand = new IfCommand();
+	} arg_list RBRACKET SEMI DO {
+		Shell::TheShell->_ifCommand->insertCondition( 
+		Shell::TheShell->_simpleCommand);
+	    Shell::TheShell->_simpleCommand = new SimpleCommand();
+	} command_list DONE {
+		Shell::TheShell->_level--; 
+	    Shell::TheShell->_ifCommand->insertListCommands( 
+		Shell::TheShell->_listCommands);
+	    Shell::TheShell->_listCommands = new ListCommands();
+	}
     ;
 for_command:
-    FOR WORD IN arg_list SEMI DO command_list DONE
+    FOR WORD IN arg_list {
+
+	} SEMI DO {
+
+	} command_list DONE {
+
+	}
     ;
 %%
 void
