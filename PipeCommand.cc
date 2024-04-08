@@ -177,6 +177,12 @@ void PipeCommand::execute() {
             }
         }
 
+        std::cout << "ma gawd ";
+
+        for(int i=0;i<args3.size();i++) {
+            std::cout << args[i] << '\n'
+        }
+
         args3 = subshells(args3);
 
         //
