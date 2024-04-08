@@ -171,6 +171,7 @@ void PipeCommand::execute() {
             if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
                 std::vector<std::string> wild = wildcards(arg, ""); 
                 if (!wild.empty()) {
+                    args3.erase(args3.begin() + i);
                     args3.insert(args3.begin() + i, wild.begin(), wild.end()); 
                     i += wild.size();
                 }
