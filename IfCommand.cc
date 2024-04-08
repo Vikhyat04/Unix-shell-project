@@ -56,7 +56,7 @@ IfCommand::print() {
     this->_listCommands->print();
 }
 
-setenv count 5; while [ ${count} -ne 0 ]; do echo ${count}; done;
+//setenv count 5; while [ ${count} -ne 0 ]; do echo ${count}; done;
   
 void 
 IfCommand::execute() {
