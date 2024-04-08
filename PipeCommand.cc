@@ -394,9 +394,9 @@ std::vector<std::string> PipeCommand::subshells(std::vector<std::string> args) {
                     close(fdpipeout[0]);
                     free(buffer);
                 }
+                flag=0;
             }
         return args;
-
 }
 
 
