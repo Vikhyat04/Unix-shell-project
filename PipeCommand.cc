@@ -276,6 +276,7 @@ void PipeCommand::execute() {
 
         
         if(i == num_of_commands - 1) {
+            printf("ifi: %d\n", i);
             if(_outFile) {
                 if(_boolappend) {
                     fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_APPEND, 0600);
@@ -287,6 +288,7 @@ void PipeCommand::execute() {
                 fdout = dup(defout);
             }
         } else {
+            printf("elsei: %d\n", i);
 			int fdpipe[2];
             if (pipe(fdpipe) == -1) {
                 perror("pipe");
