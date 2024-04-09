@@ -142,7 +142,7 @@ void PipeCommand::execute() {
     }
 
     // Print contents of PipeCommand data structure
-    print();
+    //print();
 
     if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0){
         if (Shell::TheShell->_enablePrompt) {
