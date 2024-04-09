@@ -66,8 +66,8 @@ void Shell::clear() {
 void Shell::execute() {
   if (this->_level == 0 ) {
     //this->print();
-    this->_listcommands_w->execute();
-    this->_listcommands_w->clear();
+    this->_listcommands_w.back()->execute();
+    this->_listcommands_w.back()->clear();
     this->prompt();
   }
 }

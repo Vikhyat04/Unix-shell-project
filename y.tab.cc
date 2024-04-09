@@ -1261,7 +1261,7 @@ yyreduce:
   case 21: /* command_line: pipe_list io_modifier_list background_optional SEPARATOR  */
 #line 114 "shell.y"
          { 
-			if(Shell::TheShell->_listcommands_w.size()=0) {
+			if(Shell::TheShell->_listcommands_w.size()==0) {
 				Shell::TheShell->_listcommands_w.push_back(new ListCommands());
 			}
 			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_pipeCommand);
@@ -1281,7 +1281,7 @@ yyreduce:
   case 23: /* command_line: while_command SEPARATOR  */
 #line 124 "shell.y"
                                   {
-			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_whiles.back);
+			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_whiles.back());
 			Shell::TheShell->_whiles.pop_back();
 		}
 #line 1288 "y.tab.cc"
