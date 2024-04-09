@@ -39,7 +39,9 @@ IfCommand::runTest(SimpleCommand * condition) {
 void 
 IfCommand::insertCondition( SimpleCommand * condition ) {
     _condition = condition;
-    _condition->_arguments.insert(_condition->_arguments.begin(), new std::string("test"));
+    if (_condition) {
+        _condition->_arguments.insert(_condition->_arguments.begin(), new std::string("test"));
+    }
 }
 
 void 
