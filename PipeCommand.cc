@@ -318,6 +318,7 @@ void PipeCommand::execute() {
             }
         }
         printf("i: %d\n", i);
+        printf("n: %d\n", num_of_commands);
     }
     printf("ooga:\n");
     dup2(defin, 0);
