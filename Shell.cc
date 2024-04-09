@@ -139,8 +139,7 @@ main(int argc, char **argv) {
 
   setenv("SHELL",result,1);
 
-  if(isatty(0)) {
-    printf("Hi\n");
+  if(input_file == NULL) {
     push_buffer(stdin);
     FILE* yyin = fopen(".shellrc", "r");
     if (yyin)
