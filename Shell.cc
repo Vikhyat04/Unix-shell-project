@@ -23,6 +23,8 @@ Shell::Shell() {
     if ( !isatty(0)) {
 	this->_enablePrompt = false;
     }
+
+    this->_listcommands_w.psuh_back(new ListCommands());
 }
 
 extern "C" void ctrlC(int sig) {
