@@ -108,6 +108,12 @@ main(int argc, char **argv) {
         perror("fopen");
         exit(1);
     }
+
+    setenv("#", std::to_string(argc - 2).c_str(), 1);
+    for (int i = 1; i < argc; i++) {
+        setenv(std::to_string(i - 1).c_str(), argv[i], 1);
+    }
+
     yyset_in(f);
   }
   const char* relativePath = argv[0];
