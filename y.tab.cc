@@ -538,8 +538,8 @@ static const yytype_uint8 yyrline[] =
 {
        0,    37,    37,    39,    41,    44,    44,    51,    57,    65,
       70,    75,    82,    88,    92,    98,    99,   102,   106,   109,
-     110,   113,   119,   124,   128,   129,   130,   133,   138,   145,
-     150,   144,   165,   168,   165,   180,   182,   180
+     110,   113,   121,   124,   128,   129,   130,   133,   138,   145,
+     150,   144,   165,   168,   165,   179,   181,   179
 };
 #endif
 
@@ -1261,41 +1261,42 @@ yyreduce:
   case 21: /* command_line: pipe_list io_modifier_list background_optional SEPARATOR  */
 #line 114 "shell.y"
          { 
-	    Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_pipeCommand);
-	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
+			if(Shell::TheShell->_listcommands_w.size()=0) {
+				Shell::TheShell->_listcommands_w.push_back(new ListCommands());
+			}
+			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_pipeCommand);
+			Shell::TheShell->_pipeCommand = new PipeCommand();
          }
-#line 1269 "y.tab.cc"
+#line 1271 "y.tab.cc"
     break;
 
   case 22: /* command_line: if_command SEPARATOR  */
-#line 120 "shell.y"
-         {
-	    Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_ifCommand);
+#line 121 "shell.y"
+                               {
+	    	Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_ifCommand);
          }
-#line 1278 "y.tab.cc"
+#line 1279 "y.tab.cc"
     break;
 
   case 23: /* command_line: while_command SEPARATOR  */
 #line 124 "shell.y"
                                   {
-			Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_ifCommand);
+			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_whiles.back);
+			Shell::TheShell->_whiles.pop_back();
 		}
-#line 1287 "y.tab.cc"
+#line 1288 "y.tab.cc"
     break;
 
   case 24: /* command_line: for_command SEPARATOR  */
 #line 128 "shell.y"
                                 {printf("for\n"); }
-#line 1293 "y.tab.cc"
+#line 1294 "y.tab.cc"
     break;
 
   case 26: /* command_line: error SEPARATOR  */
 #line 130 "shell.y"
                           {yyerrok; Shell::TheShell->clear(); }
-#line 1299 "y.tab.cc"
+#line 1300 "y.tab.cc"
     break;
 
   case 27: /* command_list: command_line  */
@@ -1303,7 +1304,7 @@ yyreduce:
         { 
 	   Shell::TheShell->execute();
 	}
-#line 1307 "y.tab.cc"
+#line 1308 "y.tab.cc"
     break;
 
   case 28: /* command_list: command_list command_line  */
@@ -1311,7 +1312,7 @@ yyreduce:
         {
 	    Shell::TheShell->execute();
 	}
-#line 1315 "y.tab.cc"
+#line 1316 "y.tab.cc"
     break;
 
   case 29: /* $@2: %empty  */
@@ -1320,7 +1321,7 @@ yyreduce:
 	    Shell::TheShell->_level++; 
 	    Shell::TheShell->_ifCommand = new IfCommand(true);
 	}
-#line 1324 "y.tab.cc"
+#line 1325 "y.tab.cc"
     break;
 
   case 30: /* $@3: %empty  */
@@ -1330,7 +1331,7 @@ yyreduce:
 		    Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
 	}
-#line 1334 "y.tab.cc"
+#line 1335 "y.tab.cc"
     break;
 
   case 31: /* if_command: IF LBRACKET $@2 arg_list RBRACKET SEMI THEN $@3 command_list FI  */
@@ -1341,41 +1342,40 @@ yyreduce:
 		    Shell::TheShell->_listCommands);
 	    Shell::TheShell->_listCommands = new ListCommands();
 	}
-#line 1345 "y.tab.cc"
+#line 1346 "y.tab.cc"
     break;
 
   case 32: /* $@4: %empty  */
 #line 165 "shell.y"
                    {
-		Shell::TheShell->_level++; 
-	    Shell::TheShell->_ifCommand = new IfCommand(false);
+		Shell::TheShell->_level++;
+	    Shell::TheShell->_whiles.push_back(new IfCommand());
 	}
-#line 1354 "y.tab.cc"
+#line 1355 "y.tab.cc"
     break;
 
   case 33: /* $@5: %empty  */
 #line 168 "shell.y"
                                     {
-		Shell::TheShell->_ifCommand->insertCondition( 
-		Shell::TheShell->_simpleCommand);
+		Shell::TheShell->_whiles.back()->insertCondition(Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
+		Shell::TheShell->_listcommands_w.push_back(new ListCommands());
 	}
-#line 1364 "y.tab.cc"
+#line 1365 "y.tab.cc"
     break;
 
   case 34: /* while_command: WHILE LBRACKET $@4 arg_list RBRACKET SEMI DO $@5 command_list DONE  */
 #line 172 "shell.y"
                             {
 		Shell::TheShell->_level--; 
-	    Shell::TheShell->_ifCommand->insertListCommands( 
-		Shell::TheShell->_listCommands);
-	    Shell::TheShell->_listCommands = new ListCommands();
+	    Shell::TheShell->_whiles.back()->insertListCommands(Shell::TheShell->_listcommands_w.back());
+		Shell::TheShell->_listcommands_w.pop_back();
 	}
 #line 1375 "y.tab.cc"
     break;
 
   case 35: /* $@6: %empty  */
-#line 180 "shell.y"
+#line 179 "shell.y"
                          {
 
 	}
@@ -1383,7 +1383,7 @@ yyreduce:
     break;
 
   case 36: /* $@7: %empty  */
-#line 182 "shell.y"
+#line 181 "shell.y"
                   {
 
 	}
@@ -1391,7 +1391,7 @@ yyreduce:
     break;
 
   case 37: /* for_command: FOR WORD IN arg_list $@6 SEMI DO $@7 command_list DONE  */
-#line 184 "shell.y"
+#line 183 "shell.y"
                             {
 
 	}
@@ -1592,7 +1592,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 188 "shell.y"
+#line 187 "shell.y"
 
 void
 yyerror(const char * s)
