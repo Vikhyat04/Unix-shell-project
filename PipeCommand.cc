@@ -303,10 +303,10 @@ void PipeCommand::execute() {
 		}
         printf("2\n");
 
+        printf("oogai: %d\n", i);`
         dup2(fdout, 1);
-        printf("oogai: %d\n", i);
-        close(fdout);
         printf("boogai: %d\n", i);
+        close(fdout);
         
         const char ** args = (const char **)
         malloc((args3.size()+1)*sizeof(char*));
