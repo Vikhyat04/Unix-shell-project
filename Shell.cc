@@ -38,7 +38,7 @@ void Shell::prompt() {
       if(getenv("PROMPT") != NULL) {
         std::string prmpt = std::string(getenv("PROMPT"));
         if(!prmpt.empty()) {
-          printf("%s",prmpt);
+          printf("%s",prmpt.c_str());
         }
         else {
 	        printf("myshell>");
