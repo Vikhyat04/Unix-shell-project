@@ -140,7 +140,7 @@ void PipeCommand::execute() {
     }
 
     // Print contents of PipeCommand data structure
-    print();
+    //print();
 
     if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0){
         if (Shell::TheShell->_enablePrompt) {
@@ -185,6 +185,7 @@ void PipeCommand::execute() {
 	close(fderr);
     int ret;
      unsigned long num_of_commands = _simpleCommands.size();
+     printf("NUM: %d", num_of_commands);
      for (unsigned long i = 0; i < num_of_commands; i++) {
 
         printf("3\n");
