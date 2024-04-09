@@ -112,8 +112,6 @@ void PipeCommand::print() {
 
 std::vector<std::string>PipeCommand::for_argumemnts() {
 
-        SimpleCommand * s = condition;
-
         std::vector<std::string> args3 = expandEnvVars(0);
 
         args3 = subshells(args3);
