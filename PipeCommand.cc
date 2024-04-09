@@ -186,12 +186,10 @@ void PipeCommand::execute() {
     int ret;
      unsigned long num_of_commands = _simpleCommands.size();
      for (unsigned long i = 0; i < num_of_commands; i++) {
-
-        printf("3\n");
         dup2(fdin, 0);
         close(fdin);
 
-        printf("i: %d\n", i);
+
 
         //
         SimpleCommand * s = _simpleCommands[i];
@@ -214,7 +212,7 @@ void PipeCommand::execute() {
             }
         }
 
-        printf("i: %d\n", i);
+
 
 
         //
@@ -272,11 +270,8 @@ void PipeCommand::execute() {
             return;
 	    }
 
-        printf("i: %d\n", i);
-
         
         if(i == num_of_commands - 1) {
-            printf("ifi: %d\n", i);
             if(_outFile) {
                 if(_boolappend) {
                     fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_APPEND, 0600);
@@ -288,24 +283,16 @@ void PipeCommand::execute() {
                 fdout = dup(defout);
             }
         } else {
-            printf("elsei: %d\n", i);
 			int fdpipe[2];
             if (pipe(fdpipe) == -1) {
                 perror("pipe");
                 exit(1);
             }
 			//pipe(fdpipe);
-            printf("1\n");
-            printf("elsei: %d\n", i);
 			fdout = fdpipe[1];
 			fdin = fdpipe[0];
-            printf("elsei: %d\n", i);
 		}
-        printf("2\n");
-
-        printf("oogai: %d\n", i);
         dup2(fdout, 1);
-        printf("boogai: %d\n", i);
         close(fdout);
         
         const char ** args = (const char **)
@@ -331,9 +318,8 @@ void PipeCommand::execute() {
             }
         }
 
-        printf("i: %d\n", i);
+
     }
-    printf("ooga:\n");
     dup2(defin, 0);
     dup2(defout, 1);
     dup2(deferr, 2);
