@@ -16,7 +16,7 @@ Shell::Shell() {
     this->_level = 0;
     this->_loop = false;
     this->_enablePrompt = true;
-    this->_listCommands = new ListCommands(); 
+    //this->_listCommands = new ListCommands(); 
     this->_simpleCommand = new SimpleCommand();
     this->_pipeCommand = new PipeCommand();
     this->_currentCommand = this->_pipeCommand;
@@ -66,8 +66,8 @@ void Shell::clear() {
 void Shell::execute() {
   if (this->_level == 0 ) {
     //this->print();
-    this->_listCommands->execute();
-    this->_listCommands->clear();
+    this->_listcommands_w->execute();
+    this->_listcommands_w->clear();
     this->prompt();
   }
 }

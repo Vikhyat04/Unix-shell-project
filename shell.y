@@ -112,18 +112,18 @@ SEPARATOR:
 command_line:
 	 pipe_list io_modifier_list background_optional SEPARATOR 
          { 
-	    Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_pipeCommand);
-	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
+			if(Shell::TheShell->_listcommands_w.size()=0) {
+				Shell::TheShell->_listcommands_w.push_back(new ListCommands());
+			}
+			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_pipeCommand);
+			Shell::TheShell->_pipeCommand = new PipeCommand();
          }
-        | if_command SEPARATOR 
-         {
-	    Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_ifCommand);
+        | if_command SEPARATOR {
+	    	Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_ifCommand);
          }
         | while_command SEPARATOR {
-			Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_ifCommand);
+			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_whiles.back);
+			Shell::TheShell->_whiles.pop_back();
 		}
         | for_command SEPARATOR {printf("for\n"); }
         | SEPARATOR /*accept empty cmd line*/
@@ -163,17 +163,16 @@ if_command:
 
 while_command:
     WHILE LBRACKET {
-		Shell::TheShell->_level++; 
-	    Shell::TheShell->_ifCommand = new IfCommand(false);
+		Shell::TheShell->_level++;
+	    Shell::TheShell->_whiles.push_back(new IfCommand());
 	} arg_list RBRACKET SEMI DO {
-		Shell::TheShell->_ifCommand->insertCondition( 
-		Shell::TheShell->_simpleCommand);
+		Shell::TheShell->_whiles.back()->insertCondition(Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
+		Shell::TheShell->_listcommands_w.push_back(new ListCommands());
 	} command_list DONE {
 		Shell::TheShell->_level--; 
-	    Shell::TheShell->_ifCommand->insertListCommands( 
-		Shell::TheShell->_listCommands);
-	    Shell::TheShell->_listCommands = new ListCommands();
+	    Shell::TheShell->_whiles.back()->insertListCommands(Shell::TheShell->_listcommands_w.back());
+		Shell::TheShell->_listcommands_w.pop_back();
 	}
     ;
 for_command:

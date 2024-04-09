@@ -17,6 +17,8 @@ public:
   IfCommand * _ifCommand;
   Command * _currentCommand;
   static Shell * TheShell;
+  std::vector<IfCommand*> _whiles;
+  std::vector<ListCommand*> _listcommands_w;
 
   Shell();
   void execute();
