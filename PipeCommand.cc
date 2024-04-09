@@ -187,7 +187,7 @@ void PipeCommand::execute() {
      unsigned long num_of_commands = _simpleCommands.size();
      for (unsigned long i = 0; i < num_of_commands; i++) {
 
-        printf("3");
+        printf("3\n");
         dup2(fdin, 0);
         close(fdin);
 
@@ -287,11 +287,11 @@ void PipeCommand::execute() {
                 exit(1);
             }
 			pipe(fdpipe);
-            printf("1");
+            printf("1\n");
 			fdout = fdpipe[1];
 			fdin = fdpipe[0];
 		}
-        printf("2");
+        printf("2\n");
         dup2(fdout, 1);
         close(fdout);
         
