@@ -303,8 +303,8 @@ void PipeCommand::execute() {
 		}
         printf("2\n");
 
-        printf("oogai: %d\n", i);
         dup2(fdout, 1);
+        printf("oogai: %d\n", i);
         close(fdout);
         printf("boogai: %d\n", i);
         
