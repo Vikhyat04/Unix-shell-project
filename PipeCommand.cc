@@ -301,6 +301,7 @@ void PipeCommand::execute() {
 
     // Clear to prepare for next command
     if(Shell::TheShell->_loop == false) {
+            printf("Hi");
             clear();
     }
 
