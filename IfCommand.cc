@@ -75,7 +75,6 @@ IfCommand::execute() {
         while (runTest(this->_condition) == 0) {
             _listCommands->execute();
         }
-        Shell::TheShell->_loop=false; 
     }
 
 }
