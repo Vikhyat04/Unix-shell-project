@@ -40,7 +40,7 @@ forCommand::execute() {
     p.insertSimpleCommand(_condition);
     //p.print();
     std::vector<std::string> initial_condition = p.for_argumemnts();
-
+    Shell::TheShell->_loop=true; 
     for(int i=0;i<initial_condition.size();i++) {
         int error = setenv(word->c_str(), initial_condition[i].c_str(),1);
          _listCommands->execute();
