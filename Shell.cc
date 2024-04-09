@@ -132,8 +132,6 @@ main(int argc, char **argv) {
     Shell::TheShell = new Shell();
   }
 
-  printf("HI\n");
-
   const char* relativePath = argv[0];
   char resolvedPath[256];
 
@@ -154,6 +152,8 @@ main(int argc, char **argv) {
   else {
     Shell::TheShell->prompt();
   }
+  printf("HI\n");
+
   yyparse();
 }
 
