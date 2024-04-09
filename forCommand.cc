@@ -14,7 +14,7 @@
 forCommand::forCommand() {
     _condition = NULL;
     _listCommands =  NULL;
-    std::string word = NULL;
+    std::string *word = NULL;
 }
 
 void 
