@@ -279,8 +279,6 @@ void PipeCommand::execute() {
 			pipe(fdpipe);
 			fdout = fdpipe[1];
 			fdin = fdpipe[0];
-            close(fdpipe[1]);
-            close(fdpipe[0]);
 		}
         dup2(fdout, 1);
         close(fdout);
