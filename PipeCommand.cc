@@ -111,7 +111,6 @@ void PipeCommand::print() {
 }
 
 std::vector<std::string>PipeCommand::for_argumemnts() {
-     unsigned long num_of_commands = condition.size();
 
         SimpleCommand * s = condition;
 
