@@ -36,7 +36,8 @@ forCommand::clear() {
   
 void 
 forCommand::execute() {
-    // Run command if test is 0
+    
+
     
 
 }
@@ -45,5 +46,5 @@ forCommand::execute() {
 
 void
 forCommand::print() {
-    
+
 }
