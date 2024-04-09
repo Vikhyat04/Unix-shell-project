@@ -181,6 +181,7 @@ for_command:
     FOR WORD IN arg_list {
 		Shell::TheShell->_level++;
 	    Shell::TheShell->_fors.push_back(new forCommand());
+		Shell::TheShell->_fors.back()->word = $2;
 	} SEMI DO {
 		Shell::TheShell->_fors.back()->insertCondition(Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();

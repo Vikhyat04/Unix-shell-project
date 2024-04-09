@@ -27,7 +27,7 @@ public:
 
   // Expands environment vars and wildcards of a SimpleCommand and
   // returns the arguments to pass to execvp.
-  vector<std::string> for_argumemnts();
+  std::vector<std::string>for_argumemnts();
   std::vector<std::string> expandEnvVars(int simpleCommandNumber);
   std::vector<std::string> wildcards(std::string arg, std::string basePath);
   std::string regex_func(std::string prev_dir);
