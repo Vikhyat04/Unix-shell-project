@@ -43,3 +43,7 @@ forCommand::execute() {
 
 
 
+void
+forCommand::print() {
+    
+}
