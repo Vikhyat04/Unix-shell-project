@@ -300,9 +300,9 @@ void PipeCommand::execute() {
 
 
     // Clear to prepare for next command
-    if(Shell::TheShell->_loop == false) {
-            clear();
-    }
+    // if(Shell::TheShell->_loop == false) {
+    //         clear();
+    // }
 
     // Print new prompt
     //Shell::TheShell->prompt();
