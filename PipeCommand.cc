@@ -200,16 +200,16 @@ void PipeCommand::execute() {
 
         args3 = subshells(args3);
 
-        for (int i = 0; i < args3.size(); i++) {
-            std::string &arg = args3[i];
+        for (int k = 0; k < args3.size(); k++) {
+            std::string &arg = args3[k];
 
             if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
                 std::vector<std::string> wild = wildcards(arg, ""); 
                 if (!wild.empty()) {
                     std::sort(wild.begin(), wild.end());
-                    args3.erase(args3.begin() + i);
-                    args3.insert(args3.begin() + i, wild.begin(), wild.end()); 
-                    i += wild.size();
+                    args3.erase(args3.begin() + k);
+                    args3.insert(args3.begin() + k, wild.begin(), wild.end()); 
+                    k += wild.size();
                 }
             }
         }
