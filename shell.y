@@ -125,7 +125,10 @@ command_line:
 			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_whiles.back());
 			Shell::TheShell->_whiles.pop_back();
 		}
-        | for_command SEPARATOR {printf("for\n"); }
+        | for_command SEPARATOR {
+			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_fors.back());
+			Shell::TheShell->_fors.pop_back();
+		}
         | SEPARATOR /*accept empty cmd line*/
         | error SEPARATOR {yyerrok; Shell::TheShell->clear(); }
 	;          /*error recovery*/
@@ -176,11 +179,16 @@ while_command:
     ;
 for_command:
     FOR WORD IN arg_list {
-
+		Shell::TheShell->_level++;
+	    Shell::TheShell->_fors.push_back(new forCommand());
 	} SEMI DO {
-
+		Shell::TheShell->_fors.back()->insertCondition(Shell::TheShell->_simpleCommand);
+	    Shell::TheShell->_simpleCommand = new SimpleCommand();
+		Shell::TheShell->_listcommands_w.push_back(new ListCommands());
 	} command_list DONE {
-
+		Shell::TheShell->_level--; 
+	    Shell::TheShell->_fors.back()->insertListCommands(Shell::TheShell->_listcommands_w.back());
+		Shell::TheShell->_listcommands_w.pop_back();
 	}
     ;
 %%

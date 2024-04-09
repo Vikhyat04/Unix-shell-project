@@ -4,6 +4,7 @@
 #include "ListCommands.hh"
 #include "PipeCommand.hh"
 #include "IfCommand.hh"
+#include "forCommand.hh"
 
 class Shell {
 
@@ -19,6 +20,7 @@ public:
   static Shell * TheShell;
   std::vector<IfCommand*> _whiles;
   std::vector<ListCommands*> _listcommands_w;
+  std::vector<ForCommand*> _fors;
 
   Shell();
   void execute();

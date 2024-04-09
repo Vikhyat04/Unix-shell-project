@@ -45,6 +45,9 @@ Shell.o: Shell.cc Shell.hh
 IfCommand.o: IfCommand.cc IfCommand.hh
 	$(CC) $(CCFLAGS) $(WARNFLAGS) -c IfCommand.cc
 
+forCommand.o: forCommand.cc forCommand.hh
+	$(CC) $(CCFLAGS) $(WARNFLAGS) -c forCommand.cc
+
 shell: y.tab.o lex.yy.o Shell.o PipeCommand.o SimpleCommand.o ListCommands.o Command.o IfCommand.o Shell.o $(EDIT_MODE_OBJECTS)
 	$(CC) $(CCFLAGS) $(WARNFLAGS) -o shell lex.yy.o y.tab.o Shell.o PipeCommand.o SimpleCommand.o ListCommands.o Command.o IfCommand.o $(EDIT_MODE_OBJECTS)
 
