@@ -33,6 +33,8 @@
 #include "Shell.hh"
 #include "forCommand.hh"
 
+extern int yylex_destroy();
+
 void push_buffer(FILE *yyin);
 
 PipeCommand::PipeCommand() {
@@ -146,6 +148,7 @@ void PipeCommand::execute() {
         if (Shell::TheShell->_enablePrompt) {
 		    printf("Good bye!!\n");
         }
+        yylex_destroy();
 		exit(1);
 	}
 
