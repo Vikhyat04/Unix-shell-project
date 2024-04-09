@@ -253,6 +253,14 @@ void PipeCommand::execute() {
 		    if(Shell::TheShell->_loop == false) {
                 clear();
             }
+
+            dup2(defin, 0);
+            dup2(defout, 1);
+            dup2(deferr, 2);
+            close(defin);
+            close(defout);
+            close(deferr);
+
             return;
 	    }
 
