@@ -37,11 +37,11 @@ forCommand::clear() {
 void 
 forCommand::execute() {
      PipeCommand p = PipeCommand();
-    p.insertSimpleCommand(condition);
+    p.insertSimpleCommand();
     //p.print();
     std::vector<std::string> initial_condition = p.for_argumemnts();
 
-    for(i=0;i<initial_condition.size();i++) {
+    for(int i=0;i<initial_condition.size();i++) {
         int error = setenv(word->c_str(), initial_condition[i].c_str());
          _listCommands->execute();
     }
