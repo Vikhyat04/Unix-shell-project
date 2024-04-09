@@ -187,6 +187,9 @@ void PipeCommand::execute() {
      unsigned long num_of_commands = _simpleCommands.size();
      for (unsigned long i = 0; i < num_of_commands; i++) {
 
+        dup2(fdin, 0);
+        close(fdin);
+
         //
         SimpleCommand * s = _simpleCommands[i];
 
@@ -261,14 +264,10 @@ void PipeCommand::execute() {
             close(defout);
             close(deferr);
 
-            close(fdin);
-
             return;
 	    }
 
-        //
-        dup2(fdin, 0);
-        close(fdin);
+        
         if(i == num_of_commands - 1) {
             if(_outFile) {
                 if(_boolappend) {
