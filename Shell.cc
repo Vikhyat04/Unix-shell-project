@@ -126,7 +126,7 @@ main(int argc, char **argv) {
         setenv(std::to_string(i - 1).c_str(), argv[i], 1);
     }
 
-    yyset_in(f);
+    push_buffer(f);
   }
   const char* relativePath = argv[0];
   char resolvedPath[256];
