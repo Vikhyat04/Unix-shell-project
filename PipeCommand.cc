@@ -354,7 +354,7 @@ std::vector<std::string> PipeCommand::expandEnvVars(int simpleCommandNumber) {
                 while (k < arg.length() && arg[k] != '/') {
                     k++;
                 }
-                updatedArg += "/homes/" + ((k == j + 1) ? getenv("USER") : arg.substr(j + 1, k - j - 1));
+                updatedArg += "/homes/" + ((k == j + 1) ? getenv("USER") : arg.substr(j + 2, k - j - 2));
                 j = k - 1;
             }
             if (arg[j] == '$' && j + 1 != arg.length()) {
