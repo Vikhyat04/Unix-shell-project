@@ -11,7 +11,7 @@ class forCommand : public Command {
 public:
   SimpleCommand * _condition;
   ListCommands * _listCommands; 
-  std::string word;
+  std::string * word;
   vector<std::string> args;
 
   forCommand();
