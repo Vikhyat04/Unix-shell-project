@@ -91,6 +91,8 @@ void yyset_in (FILE *  in_str );
 int 
 main(int argc, char **argv) {
 
+    printf("HI\n");
+
     struct sigaction signalAction;
     signalAction.sa_handler = ctrlC;  // Use ctrlC as the handler
     sigemptyset(&signalAction.sa_mask);
