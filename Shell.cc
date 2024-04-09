@@ -126,7 +126,10 @@ main(int argc, char **argv) {
         setenv(std::to_string(i - 1).c_str(), argv[i], 1);
     }
 
+    Shell::TheShell = new Shell();
     push_buffer(f);
+  } else {
+    Shell::TheShell = new Shell();
   }
   const char* relativePath = argv[0];
   char resolvedPath[256];
@@ -134,8 +137,6 @@ main(int argc, char **argv) {
   char* result = realpath(relativePath, resolvedPath);
 
   setenv("SHELL",result,1);
-
-  Shell::TheShell = new Shell();
 
   if(isatty(0)) {
     push_buffer(stdin);
