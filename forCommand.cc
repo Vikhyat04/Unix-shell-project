@@ -37,7 +37,7 @@ forCommand::clear() {
 void 
 forCommand::execute() {
      PipeCommand p = PipeCommand();
-    p.insertSimpleCommand(condition);
+    p.insertSimpleCommand(_condition);
     //p.print();
     std::vector<std::string> initial_condition = p.for_argumemnts();
 
