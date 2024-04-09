@@ -319,6 +319,7 @@ void PipeCommand::execute() {
         }
         printf("i: %d\n", i);
     }
+    printf("ooga:\n");
     dup2(defin, 0);
     dup2(defout, 1);
     dup2(deferr, 2);
