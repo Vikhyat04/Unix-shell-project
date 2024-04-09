@@ -11,10 +11,9 @@
 #include "PipeCommand.hh"
 #include "Shell.hh"
 
-forCommand::forCommand(bool _isfor) {
+forCommand::forCommand() {
     _condition = NULL;
     _listCommands =  NULL;
-    this->_isfor = _isfor;
     std::string iterator = NULL;
 }
 
