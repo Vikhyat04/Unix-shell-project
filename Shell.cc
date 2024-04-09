@@ -140,7 +140,6 @@ main(int argc, char **argv) {
     push_buffer(stdin);
     FILE* yyin = fopen(".shellrc", "r");
     push_buffer(yyin);
-		return;
   }
 
   if (input_file != NULL) {
