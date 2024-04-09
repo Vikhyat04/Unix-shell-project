@@ -351,10 +351,10 @@ std::vector<std::string> PipeCommand::expandEnvVars(int simpleCommandNumber) {
         for (int j = 0; j < arg.length(); j++) {
             if (j == 0 && arg[j] == '~') {
                 int k = j + 1;
-                while (k < len && arg[k] != '/') {
+                while (k < arg.length() && arg[k] != '/') {
                     k++;
                 }
-                updatedArg += "/homes/" + ((k == l + 1) ? getenv("USER") : arg.substr(j + 1, k - j - 1));
+                updatedArg += "/homes/" + ((k == j + 1) ? getenv("USER") : arg.substr(j + 1, k - j - 1));
                 j = k - 1;
             }
             if (arg[j] == '$' && j + 1 != arg.length()) {
