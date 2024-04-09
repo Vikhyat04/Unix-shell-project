@@ -35,15 +35,21 @@ extern "C" void ctrlC(int sig) {
 
 void Shell::prompt() {
     if (_enablePrompt) {
-      std::string prmpt = std::string(getenv("PROMPT"));
-      if(prmpt.empty()) {
-        printf("%s",prmpt);
-      } else {
+      if(getenv("PROMPT") != NULL) {
+        std::string prmpt = std::string(getenv("PROMPT"));
+        if(prmpt.empty()) {
+          printf("%s",prmpt);
+        }
+        else {
+	        printf("myshell>");
+        }
+      }
+     else {
 	      printf("myshell>");
       }
 	fflush(stdout);
     }
-}
+    }
 
 extern "C" void zombie(int sig) {
 	  int status;
