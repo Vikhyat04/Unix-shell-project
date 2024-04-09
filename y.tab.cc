@@ -1349,7 +1349,7 @@ yyreduce:
 #line 165 "shell.y"
                    {
 		Shell::TheShell->_level++;
-	    Shell::TheShell->_whiles.push_back(new IfCommand());
+	    Shell::TheShell->_whiles.push_back(new IfCommand(false));
 	}
 #line 1355 "y.tab.cc"
     break;

@@ -112,7 +112,7 @@ SEPARATOR:
 command_line:
 	 pipe_list io_modifier_list background_optional SEPARATOR 
          { 
-			if(Shell::TheShell->_listcommands_w.size()=0) {
+			if(Shell::TheShell->_listcommands_w.size()==0) {
 				Shell::TheShell->_listcommands_w.push_back(new ListCommands());
 			}
 			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_pipeCommand);
@@ -122,7 +122,7 @@ command_line:
 	    	Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_ifCommand);
          }
         | while_command SEPARATOR {
-			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_whiles.back);
+			Shell::TheShell->_listcommands_w.back()->insertCommand(Shell::TheShell->_whiles.back());
 			Shell::TheShell->_whiles.pop_back();
 		}
         | for_command SEPARATOR {printf("for\n"); }
