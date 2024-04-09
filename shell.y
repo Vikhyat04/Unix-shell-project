@@ -155,9 +155,8 @@ if_command:
     command_list FI 
 	{ 
 	    Shell::TheShell->_level--; 
-	    Shell::TheShell->_ifCommand->insertListCommands( 
-		    Shell::TheShell->_listCommands);
-	    Shell::TheShell->_listCommands = new ListCommands();
+	    Shell::TheShell->_ifCommand->insertListCommands(Shell::TheShell->_listcommands_w.back());
+		Shell::TheShell->_listcommands_w.push_back(new ListCommands());
 	}
     ;
 
