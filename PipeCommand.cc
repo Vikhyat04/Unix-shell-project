@@ -294,7 +294,7 @@ void PipeCommand::execute() {
                 perror("pipe");
                 exit(1);
             }
-			pipe(fdpipe);
+			//pipe(fdpipe);
             printf("1\n");
             printf("elsei: %d\n", i);
 			fdout = fdpipe[1];
