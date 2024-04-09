@@ -16,6 +16,7 @@ public:
   SimpleCommand *_simpleCommand;
   PipeCommand * _pipeCommand;
   IfCommand * _ifCommand;
+  forCommand *_forCommand;
   Command * _currentCommand;
   static Shell * TheShell;
   std::vector<IfCommand*> _whiles;
