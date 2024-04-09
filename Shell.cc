@@ -8,6 +8,7 @@
 #include "signal.h"
 
 int yyparse(void);
+void push_buffer(FILE *yyin);
 
 
 Shell * Shell::TheShell;
