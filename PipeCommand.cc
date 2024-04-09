@@ -185,7 +185,6 @@ void PipeCommand::execute() {
 	close(fderr);
     int ret;
      unsigned long num_of_commands = _simpleCommands.size();
-     printf("NUM: %d", num_of_commands);
      for (unsigned long i = 0; i < num_of_commands; i++) {
 
         printf("3\n");
@@ -318,6 +317,7 @@ void PipeCommand::execute() {
                 exit(1);
             }
         }
+        printf("i: %d\n", i);
     }
     dup2(defin, 0);
     dup2(defout, 1);
