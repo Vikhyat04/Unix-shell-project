@@ -139,12 +139,12 @@ main(int argc, char **argv) {
 
   setenv("SHELL",result,1);
 
-  // if(input_file == NULL) {
-  //   push_buffer(stdin);
-  //   FILE* yyin = fopen(".shellrc", "r");
-  //   if (yyin)
-  //   push_buffer(yyin);
-  // }
+  if(input_file == NULL) {
+    push_buffer(stdin);
+    FILE* yyin = fopen(".shellrc", "r");
+    if (yyin)
+    push_buffer(yyin);
+  }
 
   if (input_file != NULL) {
     // No prompt if running a script
