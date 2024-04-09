@@ -539,7 +539,7 @@ static const yytype_uint8 yyrline[] =
        0,    37,    37,    39,    41,    44,    44,    51,    57,    65,
       70,    75,    82,    88,    92,    98,    99,   102,   106,   109,
      110,   113,   121,   124,   128,   132,   133,   136,   141,   148,
-     153,   147,   167,   170,   167,   181,   184,   181
+     153,   147,   167,   170,   167,   181,   185,   181
 };
 #endif
 
@@ -1381,32 +1381,33 @@ yyreduce:
                          {
 		Shell::TheShell->_level++;
 	    Shell::TheShell->_fors.push_back(new forCommand());
+		Shell::TheShell->_fors.back()->word = (yyvsp[-2].cpp_string);
 	}
-#line 1386 "y.tab.cc"
+#line 1387 "y.tab.cc"
     break;
 
   case 36: /* $@7: %empty  */
-#line 184 "shell.y"
+#line 185 "shell.y"
                   {
 		Shell::TheShell->_fors.back()->insertCondition(Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
 		Shell::TheShell->_listcommands_w.push_back(new ListCommands());
 	}
-#line 1396 "y.tab.cc"
+#line 1397 "y.tab.cc"
     break;
 
   case 37: /* for_command: FOR WORD IN arg_list $@6 SEMI DO $@7 command_list DONE  */
-#line 188 "shell.y"
+#line 189 "shell.y"
                             {
 		Shell::TheShell->_level--; 
 	    Shell::TheShell->_fors.back()->insertListCommands(Shell::TheShell->_listcommands_w.back());
 		Shell::TheShell->_listcommands_w.pop_back();
 	}
-#line 1406 "y.tab.cc"
+#line 1407 "y.tab.cc"
     break;
 
 
-#line 1410 "y.tab.cc"
+#line 1411 "y.tab.cc"
 
       default: break;
     }
@@ -1599,7 +1600,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 194 "shell.y"
+#line 195 "shell.y"
 
 void
 yyerror(const char * s)
