@@ -12,7 +12,7 @@ public:
   SimpleCommand * _condition;
   ListCommands * _listCommands; 
   std::string * word;
-  vector<std::string> args;
+  std::vector<std::string> args;
 
   forCommand();
   void insertCondition( SimpleCommand * condition );
