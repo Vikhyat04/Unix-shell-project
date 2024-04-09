@@ -272,6 +272,8 @@ void PipeCommand::execute() {
             return;
 	    }
 
+        printf("i: %d\n", i);
+
         
         if(i == num_of_commands - 1) {
             if(_outFile) {
@@ -298,6 +300,8 @@ void PipeCommand::execute() {
         printf("2\n");
         dup2(fdout, 1);
         close(fdout);
+
+        printf("i: %d\n", i);
         
         const char ** args = (const char **)
         malloc((args3.size()+1)*sizeof(char*));
@@ -321,6 +325,8 @@ void PipeCommand::execute() {
                 exit(1);
             }
         }
+
+        printf("i: %d\n", i);
     }
     printf("ooga:\n");
     dup2(defin, 0);
