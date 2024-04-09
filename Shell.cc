@@ -136,6 +136,13 @@ main(int argc, char **argv) {
 
   Shell::TheShell = new Shell();
 
+  if(isatty(0)) {
+    push_buffer(stdin);
+    FILE* yyin = fopen(".shellrc", "r");
+    push_buffer(yyin);
+		return;
+  }
+
   if (input_file != NULL) {
     // No prompt if running a script
     Shell::TheShell->_enablePrompt = false;
