@@ -37,7 +37,7 @@ void Shell::prompt() {
     if (_enablePrompt) {
       std::string prmpt = getenv("PROMPT");
       if(prmpt) {
-        printf(prmt);
+        printf(prmpt);
       } else {
 	      printf("myshell>");
       }
