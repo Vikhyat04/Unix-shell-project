@@ -25,7 +25,7 @@ IfCommand::runTest(SimpleCommand * condition) {
     //condition->print();
     PipeCommand p = PipeCommand();
     p.insertSimpleCommand(condition);
-    p.print();
+    //p.print();
     p.execute();
     char *index = (getenv("?"));
     if(index==NULL) {
