@@ -152,7 +152,6 @@ main(int argc, char **argv) {
   else {
     Shell::TheShell->prompt();
   }
-  printf("HI\n");
 
   yyparse();
 }
