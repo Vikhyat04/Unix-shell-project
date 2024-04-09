@@ -24,7 +24,7 @@ Shell::Shell() {
 	this->_enablePrompt = false;
     }
 
-    this->_listcommands_w.psuh_back(new ListCommands());
+    this->_listcommands_w.push_back(new ListCommands());
 }
 
 extern "C" void ctrlC(int sig) {
