@@ -299,6 +299,7 @@ void PipeCommand::execute() {
             printf("elsei: %d\n", i);
 			fdout = fdpipe[1];
 			fdin = fdpipe[0];
+            printf("elsei: %d\n", i);
 		}
         printf("2\n");
         dup2(fdout, 1);
