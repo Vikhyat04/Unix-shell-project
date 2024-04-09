@@ -282,6 +282,8 @@ void PipeCommand::execute() {
 		}
         dup2(fdout, 1);
         close(fdout);
+        close(fdpipe[1]);
+        close(fdpipe[0]);
         
         const char ** args = (const char **)
         malloc((args3.size()+1)*sizeof(char*));
