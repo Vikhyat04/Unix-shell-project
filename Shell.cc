@@ -35,7 +35,7 @@ extern "C" void ctrlC(int sig) {
 
 void Shell::prompt() {
     if (_enablePrompt) {
-      std::string prmpt = getenv("PROMPT");
+      std::string prmpt = std::string(getenv("PROMPT"));
       if(prmpt.empty()) {
         printf("%s",prmpt);
       } else {
