@@ -164,7 +164,7 @@ if_command:
 while_command:
     WHILE LBRACKET {
 		Shell::TheShell->_level++;
-	    Shell::TheShell->_whiles.push_back(new IfCommand());
+	    Shell::TheShell->_whiles.push_back(new IfCommand(false));
 	} arg_list RBRACKET SEMI DO {
 		Shell::TheShell->_whiles.back()->insertCondition(Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
