@@ -191,6 +191,8 @@ void PipeCommand::execute() {
         dup2(fdin, 0);
         close(fdin);
 
+        printf("i: %d\n", i);
+
         //
         SimpleCommand * s = _simpleCommands[i];
 
@@ -211,6 +213,8 @@ void PipeCommand::execute() {
                 }
             }
         }
+
+        printf("i: %d\n", i);
 
 
         //
@@ -317,8 +321,6 @@ void PipeCommand::execute() {
                 exit(1);
             }
         }
-        printf("i: %d\n", i);
-        printf("n: %d\n", num_of_commands);
     }
     printf("ooga:\n");
     dup2(defin, 0);
