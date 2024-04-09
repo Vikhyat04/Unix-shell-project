@@ -19,7 +19,6 @@ public:
   //static int runTest(SimpleCommand * condition);
 
   void clear();
-  void print();
   void execute();
 
 };

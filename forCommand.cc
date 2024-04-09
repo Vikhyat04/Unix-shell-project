@@ -18,4 +18,29 @@ forCommand::forCommand(bool _isfor) {
     std::string iterator = NULL;
 }
 
+void 
+forCommand::insertCondition( SimpleCommand * condition ) {
+    _condition = condition;
+    
+}
+
+void 
+forCommand::insertListCommands( ListCommands * listCommands) {
+    _listCommands = listCommands;
+}
+
+void 
+forCommand::clear() {
+}
+
+
+  
+void 
+forCommand::execute() {
+    // Run command if test is 0
+    
+
+}
+
+
 

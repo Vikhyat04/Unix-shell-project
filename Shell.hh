@@ -20,7 +20,7 @@ public:
   static Shell * TheShell;
   std::vector<IfCommand*> _whiles;
   std::vector<ListCommands*> _listcommands_w;
-  std::vector<ForCommand*> _fors;
+  std::vector<forCommand*> _fors;
 
   Shell();
   void execute();
